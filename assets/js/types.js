@@ -91,3 +91,46 @@ class Vector2D extends Point2D {
     this.rotate(vector._x, vector._y, 1);
   }
 }
+
+/**
+ * Defines a rectanglular region in 2D space that can collide and detect collision
+ */
+class BoundingBox {
+  constructor(x, y, width, height) {
+    this._x = x;
+    this._y = y;
+    this._w = width;
+    this._h = height;
+  }
+  copy(box) {
+    this._x = box._x;
+    this._y = box._y;
+    this._w = box._w;
+    this._h = box._h;
+  }
+  // Checks whether the point is within the box boundary
+  pointInBounds(point) {
+    return this.inBounds(point.x, point.y);
+  }
+  // Checks whether the x,y co-ordinate passed is within the box boundary
+  inBounds(x, y) {
+    if (x >= this._x && y >= this._y &&
+        x <= (this._x + this._w) &&
+        y <= (this._y + this._h)) {
+      return true;
+    }
+    return false;
+  }
+  // Checks whether the boundingBox passed is colliding with this one
+  checkCollision(box) {
+    if (this._x < box._x + box._w &&
+        this._x + this._w > box._x &&
+        this._y < box._y + box._h &&
+        this._y + this._y > box._h) {
+      return true;
+    }
+    return false;
+  }
+}
+
+
