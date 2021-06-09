@@ -17,3 +17,19 @@ class AbstractClass {
     );
   }
 }
+
+/**
+ * Defines the base functionality of interactive game objects
+ */
+class GameObject extends AbstractClass {
+  constructor(boundingBox) {
+    super(GameObject);
+    this._box = boundingBox;
+  }
+  update(timeDelta) {
+    this.AbstractMethod("update");
+  }
+  draw(ctx) {
+    this.AbstractMethod("draw");
+  }
+}
