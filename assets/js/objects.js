@@ -42,3 +42,12 @@ class Paddle extends GameObject {
     super(boundingBox);
   }
 }
+
+/**
+ * Defines a basic ball
+ */
+class Ball extends GameObject {
+  constructor(boundingBox) {
+    super(boundingBox);
+  }
+}
