@@ -108,6 +108,30 @@ class BoundingBox {
     this._w = box._w;
     this._h = box._h;
   }
+  get x() {
+    return this._x;
+  }
+  set x(val) {
+    this._x = val;
+  }
+  get y() {
+    return this._y;
+  }
+  set y(val) {
+    this._y = val;
+  }
+  get width() {
+    return this._w;
+  }
+  set width(val) {
+    this._w = val;
+  }
+  get height() {
+    return this._h;
+  }
+  set height(val) {
+    this._h = val;
+  }
   // Checks whether the point is within the box boundary
   pointInBounds(point) {
     return this.inBounds(point.x, point.y);
