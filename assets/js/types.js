@@ -134,7 +134,7 @@ class BoundingBox {
   }
   // Checks whether the point is within the box boundary
   pointInBounds(point) {
-    return this.inBounds(point.x, point.y);
+    return this.inBounds(point._x, point._y);
   }
   // Checks whether the x,y co-ordinate passed is within the box boundary
   inBounds(x, y) {
@@ -157,5 +157,3 @@ class BoundingBox {
     return false;
   }
 }
-
-
