@@ -33,3 +33,12 @@ class GameObject extends AbstractClass {
     this.AbstractMethod("draw");
   }
 }
+
+/**
+ * Defines a player controlled paddle
+ */
+class Paddle extends GameObject {
+  constructor(boundingBox) {
+    super(boundingBox);
+  }
+}
