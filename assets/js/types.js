@@ -146,11 +146,12 @@ class BoundingBox {
     return false;
   }
   // Checks whether the boundingBox passed is colliding with this one
+  // Basic AABB collision detection
   checkCollision(box) {
     if (this._x < box._x + box._w &&
         this._x + this._w > box._x &&
         this._y < box._y + box._h &&
-        this._y + this._y > box._h) {
+        this._y + this._h > box._y) {
       return true;
     }
     return false;
