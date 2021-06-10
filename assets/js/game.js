@@ -27,5 +27,14 @@ class Game {
   endFrame(time) {
     this._lastFrameTime = time;
   }
-  update() {}
+  /**
+   * Encapsulates the game loop
+   */
+  update(time) {
+    startFrame(time);
+    // Game Logic goes here
+    drawScene();
+    endFrame(time);
+    window.requestAnimationFrame(this.update);
+  }
 }
