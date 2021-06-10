@@ -34,7 +34,12 @@ class Game {
     return this._thisFrameTime;
   }
   drawScene() {
-    
+    // Get the drawing context
+    const ctx = this._canvas.getContext("2d");
+    // Clear the screen
+    ctx.fillStyle = "#000000";
+    ctx.rect(0,0,this._canvas.width,this._canvas.height);
+    ctx.fill();
   }
   endFrame(time) {
     this._lastFrameTime = time;
