@@ -26,12 +26,19 @@ class GameObject extends AbstractClass {
     super(GameObject);
     this._box = boundingBox;
   }
-  update(timeDelta) {
-    this.AbstractMethod("update");
+  update(timeDelta) {this.AbstractMethod("update");}
+  draw(ctx) {this.AbstractMethod("draw");}
+}
+
+/**
+ * Defines a destroyable block
+ */
+class Block extends GameObject {
+  constructor(boundingBox) {
+    super(boundingBox);
   }
-  draw(ctx) {
-    this.AbstractMethod("draw");
-  }
+  update(timeDelta) {}
+  draw(ctx) {}
 }
 
 /**
