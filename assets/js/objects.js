@@ -45,8 +45,23 @@ class Block extends GameObject {
  * Defines a player controlled paddle
  */
 class Paddle extends GameObject {
-  constructor(boundingBox) {
+  constructor(boundingBox, speed) {
     super(boundingBox);
+    // Speed the paddle can move in pixels a second
+    this._speed = speed;
+  }
+  get speed() {
+    return this._speed;
+  }
+  set speed(val) {
+    this._speed = val;
+  }
+  update(timeDelta) {
+
+  }
+  draw(ctx) {
+    ctx.beginPath();
+
   }
 }
 
