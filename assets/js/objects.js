@@ -38,13 +38,17 @@ class Block extends GameObject {
     super(boundingBox);
   }
   update(timeDelta) {}
-  draw(ctx) {}
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.rect(this._box.x, this._box.y, this._box.width, this._box.height);
+    ctx.fill();
+  }
 }
 
 /**
  * Defines a player controlled paddle
  */
-class Paddle extends GameObject {
+class Paddle extends Block {
   constructor(boundingBox, speed) {
     super(boundingBox);
     // Speed the paddle can move in pixels a second
@@ -58,11 +62,6 @@ class Paddle extends GameObject {
   }
   update(timeDelta) {
 
-  }
-  draw(ctx) {
-    ctx.beginPath();
-    ctx.rect(this._box.x, this._box.y, this._box.width, this._box.height);
-    ctx.fill();
   }
 }
 
