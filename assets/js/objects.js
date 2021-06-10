@@ -69,7 +69,20 @@ class Paddle extends GameObject {
  * Defines a basic ball
  */
 class Ball extends GameObject {
-  constructor(boundingBox) {
+  constructor(boundingBox, initalVector) {
     super(boundingBox);
+    this._vector = initalVector;
+  }
+  get vector() {
+    return this._vector;
+  }
+  set vector(val) {
+    this._vector = val;
+  }
+  update(timeDelta) {
+
+  }
+  draw(ctx) {
+
   }
 }
