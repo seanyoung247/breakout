@@ -11,6 +11,9 @@ class Game {
     this.setupGame();
   }
   setupGame() {
+    // Ensure the canvas fills the viewport
+    this._canvas.width = this._viewport.clientWidth;
+    this._canvas.height = this._viewport.clientHeight;
     // Create the screen bounding box
     this._bounds = new BoundingBox(0, 0, this._canvas.width, this._canvas.height);
     // Create the player paddle
