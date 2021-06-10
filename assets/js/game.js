@@ -31,6 +31,8 @@ class Game {
    * Encapsulates the game loop
    */
   update(time) {
+    // Convert time in milliseconds to seconds
+    let timeDelta = time / 1000;
     startFrame(time);
     // Game Logic goes here
     drawScene();
