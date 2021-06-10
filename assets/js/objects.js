@@ -83,6 +83,12 @@ class Ball extends GameObject {
 
   }
   draw(ctx) {
-
+    // Calculate the center point from the BoundingBox
+    let cX = this._box.x + this._box.width / 2;
+    let cY = this._box.y + this._box.height / 2;
+    // Draw the circle. Assumes height === width
+    ctx.beginPath();
+    ctx.arc(cX, cY, this._box.width / 2, 0, 2 * Math.PI);
+    ctx.fill();
   }
 }
