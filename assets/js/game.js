@@ -40,12 +40,21 @@ class Game {
    * Encapsulates the game loop
    */
   update(time) {
-    // Convert time in milliseconds to seconds
-    let timeDelta = time / 1000;
-    startFrame(time);
-    // Game Logic goes here
-    drawScene();
-    endFrame(time);
-    window.requestAnimationFrame(this.update);
+    // Ensure the canvas fills the viewport
+    this._canvas.width = this._viewport.clientWidth;
+    this._canvas.height = this._viewport.clientHeight;
+    // If the screen size has changed restart the game
+    if (this._bounds.width != this._canvas.width ||
+        this._bounds.height != this._canvas.height) {
+      this.setupGame();
+    } else {
+      // Convert time in milliseconds to seconds
+      let timeDelta = time / 1000;
+      this.startFrame(time);
+      // Game Logic goes here
+      this.drawScene()
+      this.endFrame(time);
+    }
+    window.requestAnimationFrame(()=>this.update());
   }
 }
