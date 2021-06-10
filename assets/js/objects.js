@@ -61,7 +61,8 @@ class Paddle extends GameObject {
   }
   draw(ctx) {
     ctx.beginPath();
-
+    ctx.rect(this._box.x, this._box.y, this._box.width, this._box.height);
+    ctx.fill();
   }
 }
 
