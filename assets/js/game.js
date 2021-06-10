@@ -3,27 +3,36 @@
  * game objects.
  */
 class Game {
-  constructor(canvas) {
+  constructor(canvas, viewport) {
     this._canvas = canvas;
+    this._viewport = viewport;
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
-    let ctx = this._canvas.getContext("2d");
+    this.setupGame();
+  }
+  setupGame() {
+    // Create the screen bounding box
+    this._bounds = new BoundingBox(0, 0, this._canvas.width, this._canvas.height);
     // Create the player paddle
     this._paddle = new Paddle(
       new BoundingBox(
-        (ctx.canvas.width / 2) - 50,
-        ctx.canvas.height - 30,
-        100,
+        (this._canvas.width / 2) - 50,
+        this._canvas.height - 30,
+        150,
         25
       ), 50
     );
+    // Start the game loop
+    this.update(performance.now());
   }
   startFrame(time) {
     // Stores the time since the last frame
     this._thisFrameTime = time - this._lastFrameTime;
     return this._thisFrameTime;
   }
-  drawScene() {}
+  drawScene() {
+    
+  }
   endFrame(time) {
     this._lastFrameTime = time;
   }
