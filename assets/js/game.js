@@ -43,12 +43,9 @@ class Game {
    * Encapsulates the game loop
    */
   update(time) {
-    // Ensure the canvas fills the viewport
-    this._canvas.width = this._viewport.clientWidth;
-    this._canvas.height = this._viewport.clientHeight;
     // If the screen size has changed restart the game
-    if (this._bounds.width != this._canvas.width ||
-        this._bounds.height != this._canvas.height) {
+    if (this._canvas.width != this._viewport.clientWidth ||
+        this._canvas.height != this._viewport.clientHeight) {
       this.setupGame();
     } else {
       // Convert time in milliseconds to seconds
