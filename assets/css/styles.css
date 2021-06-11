@@ -1,17 +1,18 @@
 body, html {
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-#gameWrapper {
   width: 100vw;
   height: 100vh;
+}
+
+*{
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
 #gameCanvas {
-  width: calc(100%);
-  height: calc(100%);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  min-width: 500px;
+  min-height: 500px;
 }
