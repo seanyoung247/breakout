@@ -1,4 +1,4 @@
-/**
+/*
  * Models a point in 2D space
  */
 class Point2D {
@@ -32,7 +32,7 @@ class Point2D {
   }
 }
 
-/**
+/*
  * Models a 2D vector
  */
 class Vector2D extends Point2D {
@@ -92,7 +92,7 @@ class Vector2D extends Point2D {
   }
 }
 
-/**
+/*
  * Defines a rectanglular region in 2D space that can collide and detect collision
  */
 class BoundingBox {
