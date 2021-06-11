@@ -1,4 +1,4 @@
-/**
+/*
  * Defines the main game controller object. Manages game state, user input and
  * game objects.
  */
@@ -7,8 +7,20 @@ class Game {
     this._canvas = canvas;
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
+    this.setupEvents();
     this.setupGame();
   }
+
+  /*
+   * Attaches
+   */
+  setupEvents() {
+    document.addEventListener("keydown", (event)=>this.keyDown(event), false);
+  }
+
+  /*
+   * Creates the game objects and starts the game loop
+   */
   setupGame() {
     // Ensure the canvas context width matches it's dom width
     this._canvas.width = this._canvas.scrollWidth;
@@ -27,7 +39,7 @@ class Game {
     // Create the ball
     this._ball = new Ball(
       new BoundingBox(
-        (this._canvas.width / 2) - 7.5, this._canvas.height - 55, 25, 25
+        (this._canvas.width / 2) - 12.5, this._canvas.height - 55, 25, 25
       ),
       new Vector2D(0.5,-1)
     );
@@ -54,6 +66,24 @@ class Game {
     // Start the game loop
     this.loop(performance.now());
   }
+
+  /*
+   * User interaction
+   */
+  keyDown(event) {
+    // left == 37
+    // right == 39
+
+    console.log(event);
+  }
+
+  keyUp(event) {
+    console.log(event);
+  }
+
+  /*
+   * Frame update and draw
+   */
   startFrame(time) {
     // Stores the time since the last frame
     this._thisFrameTime = time - this._lastFrameTime;
@@ -80,6 +110,7 @@ class Game {
   endFrame(time) {
     this._lastFrameTime = time;
   }
+
   /**
    * Encapsulates the game loop
    */
