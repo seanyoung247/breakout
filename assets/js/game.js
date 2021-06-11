@@ -66,10 +66,16 @@ class Game {
     ctx.fillStyle = "black";
     ctx.rect(0,0,this._canvas.width,this._canvas.height);
     ctx.fill();
-    // Draw the game objects in a fetching retro green
-    ctx.fillStyle = "#00FF00";
+
+    ctx.fillStyle = "white";
     this._paddle.draw(ctx);
     this._ball.draw(ctx);
+    // Draw the blocks
+    for (let row = 0; row < this._blocks.length; row++) {
+      for (let column = 0; column < this._blocks[row].length; column++) {
+        this._blocks[row][column].draw(ctx);
+      }
+    }
   }
   endFrame(time) {
     this._lastFrameTime = time;
