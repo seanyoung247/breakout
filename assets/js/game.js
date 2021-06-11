@@ -44,13 +44,17 @@ class Game {
     this._thisFrameTime = time - this._lastFrameTime;
     return this._thisFrameTime;
   }
-  drawScene() {
+  drawFrame() {
     // Get the drawing context
     const ctx = this._canvas.getContext("2d");
     // Clear the screen
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = "black";
     ctx.rect(0,0,this._canvas.width,this._canvas.height);
     ctx.fill();
+    // Draw the game objects in a fetching retro green
+    ctx.fillStyle = "#00FF00";
+    this._paddle.draw(ctx);
+    this._ball.draw(ctx);
   }
   endFrame(time) {
     this._lastFrameTime = time;
