@@ -24,8 +24,20 @@ class Game {
         150, 25
       ), 50
     );
+    // Create the ball
+    this._ball = new Ball(
+      new BoundingBox(
+        (this._canvas.width / 2) - 7.5, this._canvas.height - 55, 25, 25
+      ),
+      new Vector2D(0.5,-1)
+    );
+    // Create the blocks
+    // Calculate how many rows
+    // Calculate how many blocks per row
+    // Calculate extra space at the edges
+
     // Start the game loop
-    this.update(performance.now());
+    this.loop(performance.now());
   }
   startFrame(time) {
     // Stores the time since the last frame
