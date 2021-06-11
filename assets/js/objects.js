@@ -1,4 +1,4 @@
-/**
+/*
  * Enforces the abstract class
  */
 class AbstractClass {
@@ -18,7 +18,7 @@ class AbstractClass {
   }
 }
 
-/**
+/*
  * Defines the base functionality of interactive game objects
  */
 class GameObject extends AbstractClass {
@@ -30,7 +30,7 @@ class GameObject extends AbstractClass {
   draw(ctx) {this.AbstractMethod("draw");}
 }
 
-/**
+/*
  * Defines a destroyable block
  */
 class Block extends GameObject {
@@ -48,7 +48,7 @@ class Block extends GameObject {
   }
 }
 
-/**
+/*
  * Defines a player controlled paddle
  */
 class Paddle extends Block {
@@ -66,7 +66,7 @@ class Paddle extends Block {
   update(timeDelta) {}
 }
 
-/**
+/*
  * Defines a basic ball
  */
 class Ball extends GameObject {
