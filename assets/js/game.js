@@ -31,10 +31,25 @@ class Game {
       ),
       new Vector2D(0.5,-1)
     );
-    // Create the blocks
-    // Calculate how many rows
+
     // Calculate how many blocks per row
-    // Calculate extra space at the edges
+    // The target width of a block is 100px with 2px margins.
+    const blocksPerRow = Math.floor(this._canvas.width / 104);
+    const blockWidth = (this._canvas.width / blocksPerRow) - 4;
+    // Create the blocks
+    this._blocks = new Array(3);
+    for (let row = 0; row < 3; row++) {
+      this._blocks[row] = new Array(blocksPerRow);
+      for (let column = 0; column < blocksPerRow; column++) {
+        this._blocks[row][column] = new Block(
+          new BoundingBox(
+            2 + (blockWidth + 4) * column, // X position
+            100 + (54 * row),                // Y position
+            blockWidth, 50                  // Width and height
+          )
+        );
+      }
+    }
 
     // Start the game loop
     this.loop(performance.now());
