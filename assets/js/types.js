@@ -145,13 +145,22 @@ class BoundingBox {
     }
     return false;
   }
-  // Checks whether the boundingBox passed is colliding with this one
-  // Basic AABB collision detection
-  checkCollision(box) {
+  // Checks whether any part of boundingBox passed is colliding with this one,
+  // (partial collision). Basic AABB collision detection
+  collides(box) {
     if (this._x < box._x + box._w &&
         this._x + this._w > box._x &&
         this._y < box._y + box._h &&
         this._y + this._h > box._y) {
+      return true;
+    }
+    return false;
+  }
+  // Checks the entire boundingBox passed is inside this one (complete collision)
+  contains(box) {
+    if (this._x < box._x && this._y < box._y &&
+        this._x + this._w > box._x + box._w &&
+        this._y + this._h > box._y + box._h) {
       return true;
     }
     return false;
