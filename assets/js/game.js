@@ -19,8 +19,10 @@ class Game {
    * Sets up user interaction and events
    */
   setupEvents() {
-    document.addEventListener("keydown", (event)=>this.keyDown(event), false);
-    document.addEventListener("keyup", (event)=>this.keyUp(event), false);
+    // Bind events
+    document.addEventListener("keydown", (event)=>this.keyDown(event));
+    document.addEventListener("keyup", (event)=>this.keyUp(event));
+    document.addEventListener("mousemove", (event)=>this.mouseMove(event));
 
     // Maps game functions to input commands
     this._actionMap = {
@@ -29,6 +31,7 @@ class Game {
     };
     this._actionMap.left.action = (...args)=>this._paddle.moveLeft(...args);
     this._actionMap.right.action = (...args)=>this._paddle.moveRight(...args);
+
     // Maps keys to game input commands
     this._keyMap = new Map();
     this._keyMap.set("ArrowLeft", "left");
@@ -105,6 +108,11 @@ class Game {
       this._actionMap[key].down = false;
       this._actionMap[key].up = true;
     }
+  }
+
+  mouseMove(event) {
+    const x = event.clientX - this._paddle.dimensions.width / 2;
+    this._paddle.setXinBounds(this._bounds, x);
   }
 
   /*
