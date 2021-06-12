@@ -132,11 +132,9 @@ class Game {
         this._canvas.height != this._canvas.scrollHeight) {
       this.setupGame();
     } else {
-      // Convert time in milliseconds to seconds
-      let timeDelta = time / 1000;
-      this.startFrame(time);
-      // Game Logic goes here
-      this.drawFrame()
+      let timeDelta = this.startFrame(time) / 1000;
+      this.update(timeDelta)
+      this.drawFrame(timeDelta)
       this.endFrame(time);
     }
     window.requestAnimationFrame((time)=>this.loop(time));
