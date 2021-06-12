@@ -168,6 +168,16 @@ class Ball extends GameObject {
       this._vector[collision.side] = -this._vector[collision.side];
     }
     // Check for collisions with the blocks
+    const blocks = game.blocks;
+    for (let row = 0; row < blocks.length; row++) {
+      for (let column = 0; column < blocks[row].length; column++) {
+        collision = blocks[row][column]._box.intersects(this._box);
+        if (collision) {
+          this._box[collision.side] = collision.pos;
+          this._vector[collision.side] = -this._vector[collision.side];
+        }
+      }
+    }
 
     // Set the ball to the new location
   }

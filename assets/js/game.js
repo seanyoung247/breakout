@@ -23,11 +23,11 @@ class Game {
   }
 
   get ball() {
-    return this.ball;
+    return this._ball;
   }
 
   get blocks() {
-    return this.blocks;
+    return this._blocks;
   }
 
   /*
