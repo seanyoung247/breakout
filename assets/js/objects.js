@@ -150,7 +150,20 @@ class Ball extends GameObject {
       this._box.y = bounds.y;
       this._vector.y = -this._vector.y;
     }
-    // Check for object collisions
+    if (this._box.y + this._box.height > bounds.y + bounds.height) {
+      // Hit the bottom of the screen
+      // Lose a life and reset paddle and ball position
+      this._box.y = bounds.y + (bounds.height - this._box.height);
+      this._vector.y = -this._vector.y;
+    }
+
+    // Check for collision with the paddle
+    let collision = game.paddle._box.intersects(this._box);
+    if (collision) {
+      this._box[collision.side] = collision.pos;
+      this._vector[collision.side] = -this._vector[collision.side];
+    }
+    // Check for collisions with the blocks
 
     // Set the ball to the new location
   }
