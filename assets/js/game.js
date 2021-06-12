@@ -37,6 +37,7 @@ class Game {
         150, 25
       ), 50
     );
+    
     // Create the ball
     this._ball = new Ball(
       new BoundingBox(
@@ -46,9 +47,15 @@ class Game {
     );
 
     // Calculate how many blocks per row
-    // The target width of a block is 100px with 2px margins.
+    /* The minimum width of a block is 100px with 2px margins.
+       Calculate the maximum number of minimum sized blocks that
+       can fit on a row */
     const blocksPerRow = Math.floor(this._canvas.width / 104);
+
+    /* Calculate the actual width the blocks have to be to fill
+       the entire screen width */
     const blockWidth = (this._canvas.width / blocksPerRow) - 4;
+
     // Create the blocks
     this._blocks = new Array(3);
     for (let row = 0; row < 3; row++) {
@@ -111,12 +118,13 @@ class Game {
       }
     }
   }
+
   endFrame(time) {
     this._lastFrameTime = time;
   }
 
-  /**
-   * Encapsulates the game loop
+  /*
+   * Runs the game loop
    */
   loop(time) {
     // If the screen size has changed restart the game
