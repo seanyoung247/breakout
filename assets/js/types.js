@@ -157,6 +157,7 @@ class BoundingBox {
     }
     return false;
   }
+
   // Checks the entire boundingBox passed is inside this one (complete collision)
   contains(box) {
     if (this._x < box._x && this._y < box._y &&
