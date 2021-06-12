@@ -157,6 +157,44 @@ class BoundingBox {
     }
     return false;
   }
+  // A more rigorous collision test. Returns null for no collision,
+  // Otherwise returns a
+  intersects(box) {
+    // Find the amount of intersection for the left and right sides
+    const x1 = (box._x + box._w) - this._x;
+    const x2 = (this._x + this._w) - box._x;
+    let x = 0, xPos = 0;
+    // Find the closest side
+    if (x1 < x2) {
+      x = x1;
+      xPos = this._x - (box._w + 1);
+    } else {
+      x = x2;
+      xPos = this._x + this._w + 1;
+    }
+    // If x is negative there's no collision in x which means
+    // the boxes aren't intersecting
+    if (x < 0) return null;
+    // Find the amount of intersection for the top and bottom sides
+    const y1 = (box._y + box._h) - this._y;
+    const y2 = (this._y + this._h) - box._y;
+    let y = 0, yPos = 0;
+    if (y1 < y2) {
+      y = y1;
+      yPos = this._y - (box._h + 1);
+    } else {
+      y = y2;
+      yPos = this._y + this._h + 1;
+    }
+    if (y < 0) return null;
+    // Find the closest side
+    if (x < y) {
+      // x collision
+      return {side: 'x', pos: xPos};
+    } else {
+      return {side: 'y', pos: yPos};
+    }
+  }
 
   // Checks the entire boundingBox passed is inside this one (complete collision)
   contains(box) {
