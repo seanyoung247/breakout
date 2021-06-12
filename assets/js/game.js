@@ -161,6 +161,31 @@ class Game {
   }
 
   /*
+   * Game state
+   */
+  // Decrements the lives counter and sets the ball and paddle
+  // back to default position
+  loseALife() {
+    this._lives--;
+    if (this._lives > 0) {
+      // Reset paddle position
+      this._paddle.dimensions.x = (this._canvas.width / 2) - 75;
+      this._paddle.dimensions.y = this._canvas.height - 30;
+      // Reset the ball position and vector
+      this._ball.dimensions.x = (this._canvas.width / 2) - 12.5;
+      this._ball.dimensions.y = this._canvas.height - 55;
+      this._ball.vector.x = 150;
+      this._ball.vector.y = -300;
+    }
+  }
+
+  // Increments the score counter
+  increaseScore() {}
+
+  // Checks victory condition
+  checkVictory() {}
+
+  /*
    * Runs the game loop
    */
   loop(time) {
