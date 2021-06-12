@@ -187,6 +187,9 @@ class Ball extends GameObject {
         if (collision) {
           this._box[collision.side] = collision.pos;
           this._vector[collision.side] = -this._vector[collision.side];
+          // Remove the dead block from the list
+          blocks[row].splice(column, 1);
+          column--;
         }
       }
     }
