@@ -169,8 +169,7 @@ class Ball extends GameObject {
     if (this._box.y + this._box.height > bounds.y + bounds.height) {
       // Hit the bottom of the screen
       // Lose a life and reset paddle and ball position
-      this._box.y = bounds.y + (bounds.height - this._box.height);
-      this._vector.y = -this._vector.y;
+      game.loseALife();
     }
 
     // Check for collision with the paddle
@@ -193,7 +192,5 @@ class Ball extends GameObject {
         }
       }
     }
-
-    // Set the ball to the new location
   }
 }
