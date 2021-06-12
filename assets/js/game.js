@@ -9,6 +9,7 @@ class Game {
     this._lastFrameTime = 0;
     this._lives = 3;
     this._score = 0;
+    this._won = false;
 
     this._setupGame();
     this._setupEvents();
