@@ -123,15 +123,17 @@ class Game {
   }
 
   _update(time) {
-    // React to user input
-    if (this._actionMap.left.down) {
-      this._actionMap.left.action(this._bounds, time);
+    if (this._lives > 0 && !this._won) {
+      // React to user input
+      if (this._actionMap.left.down) {
+        this._actionMap.left.action(this._bounds, time);
+      }
+      if (this._actionMap.right.down) {
+        this._actionMap.right.action(this._bounds, time);
+      }
+      // Move the ball
+      this._ball.move(this._bounds, time);
     }
-    if (this._actionMap.right.down) {
-      this._actionMap.right.action(this._bounds, time);
-    }
-    // Move the ball
-    this._ball.move(this._bounds, time);
   }
 
   _drawFrame(time) {
