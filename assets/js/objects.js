@@ -22,8 +22,9 @@ class AbstractClass {
  * Defines the base functionality of interactive game objects
  */
 class GameObject extends AbstractClass {
-  constructor(boundingBox) {
+  constructor(game, boundingBox) {
     super(GameObject);
+    this._game = game;
     this._box = boundingBox;
   }
   get dimensions() {
@@ -40,8 +41,8 @@ class GameObject extends AbstractClass {
  * Defines a destroyable block
  */
 class Block extends GameObject {
-  constructor(boundingBox) {
-    super(boundingBox);
+  constructor(game, boundingBox) {
+    super(game, boundingBox);
     this._alive = true;
   }
   draw(ctx) {
@@ -58,8 +59,8 @@ class Block extends GameObject {
  * Defines a player controlled paddle
  */
 class Paddle extends Block {
-  constructor(boundingBox, speed) {
-    super(boundingBox);
+  constructor(game, boundingBox, speed) {
+    super(game, boundingBox);
     // Speed the paddle can move in pixels a second
     this._speed = speed;
   }
@@ -96,8 +97,8 @@ class Paddle extends Block {
  * Defines a basic ball
  */
 class Ball extends GameObject {
-  constructor(boundingBox, initalVector) {
-    super(boundingBox);
+  constructor(game, boundingBox, initalVector) {
+    super(game, boundingBox);
     this._vector = initalVector;
   }
   get vector() {
