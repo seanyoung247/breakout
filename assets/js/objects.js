@@ -47,6 +47,9 @@ class Block extends GameObject {
     super(game, boundingBox);
     this._alive = true;
   }
+  get isAlive() {
+    return this._alive;
+  }
   draw(ctx) {
     if (this._alive) {
       ctx.beginPath();
