@@ -156,7 +156,14 @@ class Game {
 
     // Draw the Paddle and Ball
     this._paddle.draw(ctx);
-    this._ball.draw(ctx);
+    // Hide the ball if the game isn't actively playing
+    if (this._lives > 0 && !this._won) this._ball.draw(ctx);
+
+    if (this._lives <= 0) {
+      // Draw game lost text
+    } else if (this._won) {
+      // Draw the game won text
+    }
   }
 
   _endFrame(time) {
