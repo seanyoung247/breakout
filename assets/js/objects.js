@@ -26,6 +26,12 @@ class GameObject extends AbstractClass {
     super(GameObject);
     this._box = boundingBox;
   }
+  get dimensions() {
+    return this._box;
+  }
+  set dimensions(val) {
+    this._box = val
+  }
   draw(ctx) {this.AbstractMethod("draw");}
   collision(box) {this.AbstractMethod("collision");}
 }
