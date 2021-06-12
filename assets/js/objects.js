@@ -117,4 +117,23 @@ class Ball extends GameObject {
     ctx.fill();
   }
   collision(box) {}
+  move(bounds, timeDelta) {
+    // Calculate new position
+    this._box.x = this._box.x + (this.vector.x * timeDelta);
+    this._box.y = this._box.y + (this.vector.y * timeDelta);
+    // Check the ball will still be in bounds
+    if (this._box.x < bounds.x ||
+        this._box.x + this._box.width > bounds.x + bounds.width) {
+      // Bounce from the top bottom
+      this._vector.x = -this._vector.x;
+    }
+    if (this._box.y < bounds.y ||
+        this._box.y + this._box.height > bounds.y + bounds.height) {
+      // Bounce from the top bottom
+      this._vector.y = -this._vector.y;
+    }
+    // Check for object collisions
+
+    // Set the ball to the new location
+  }
 }
