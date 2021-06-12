@@ -37,6 +37,9 @@ class GameObject extends AbstractClass {
   collision(object) {
     return this._box.collides(object._box);
   }
+  intersects(object) {
+    return this._box.intersects(object._box);
+  }
 }
 
 /*
@@ -63,6 +66,15 @@ class Block extends GameObject {
     if (this._alive) {
       collision = super.collision(object);
       this._alive = !collision;
+    }
+    return collision;
+  }
+  intersects(object) {
+    let collision = false;
+    // Only check collisions if the block is still alive
+    if (this._alive) {
+      collision = super.intersects(object);
+      if (collision) this._alive = false;
     }
     return collision;
   }
@@ -162,7 +174,7 @@ class Ball extends GameObject {
     }
 
     // Check for collision with the paddle
-    let collision = game.paddle._box.intersects(this._box);
+    let collision = game.paddle.intersects(this._box);
     if (collision) {
       this._box[collision.side] = collision.pos;
       this._vector[collision.side] = -this._vector[collision.side];
@@ -171,7 +183,7 @@ class Ball extends GameObject {
     const blocks = game.blocks;
     for (let row = 0; row < blocks.length; row++) {
       for (let column = 0; column < blocks[row].length; column++) {
-        collision = blocks[row][column]._box.intersects(this._box);
+        collision = blocks[row][column].intersects(this._box);
         if (collision) {
           this._box[collision.side] = collision.pos;
           this._vector[collision.side] = -this._vector[collision.side];
