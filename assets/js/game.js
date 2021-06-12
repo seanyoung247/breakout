@@ -16,6 +16,21 @@ class Game {
   }
 
   /*
+   * Getters for the game objects
+   */
+  get paddle() {
+    return this._paddle;
+  }
+
+  get ball() {
+    return this.ball;
+  }
+
+  get blocks() {
+    return this.blocks;
+  }
+
+  /*
    * Sets up user interaction and events
    */
   _setupEvents() {
