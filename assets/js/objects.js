@@ -27,6 +27,7 @@ class GameObject extends AbstractClass {
     this._box = boundingBox;
   }
   draw(ctx) {this.AbstractMethod("draw");}
+  collision(box) {this.AbstractMethod("collision");}
 }
 
 /*
@@ -44,6 +45,7 @@ class Block extends GameObject {
       ctx.fill();
     }
   }
+  collision(box) {}
 }
 
 /*
@@ -61,6 +63,7 @@ class Paddle extends Block {
   set speed(val) {
     this._speed = val;
   }
+  collision(box) {}
   _move(bounds, timeDelta, direction) {
     let newX = this._box.x + ((this._speed * timeDelta) * direction);
     // Clamp to the left side of the screen
@@ -104,4 +107,5 @@ class Ball extends GameObject {
     ctx.arc(cX, cY, this._box.width / 2, 0, 2 * Math.PI);
     ctx.fill();
   }
+  collision(box) {}
 }
