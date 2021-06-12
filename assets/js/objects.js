@@ -82,7 +82,7 @@ class Paddle extends Block {
     this._box.x = x;
   }
   _move(bounds, timeDelta, direction) {
-    setXinBounds(bounds, this._box.x + ((this._speed * timeDelta) * direction));
+    this.setXinBounds(bounds, this._box.x + ((this._speed * timeDelta) * direction));
   }
   moveLeft(bounds, timeDelta) {
     this._move(bounds, timeDelta, -1);
