@@ -61,8 +61,23 @@ class Paddle extends Block {
   set speed(val) {
     this._speed = val;
   }
-  move(timeDelta, direction) {
-    this._box.x = this._box.x + ((this._speed / timeDelta) * direction);
+  _move(bounds, timeDelta, direction) {
+    let newX = this._box.x + ((this._speed / timeDelta) * direction);
+    // Clamp to the left side of the screen
+    if (newX < bounds.x) {
+      newX = bounds.x;
+    }
+    // Clamp to the right side of the screen
+    if (newX + this._box.width > bounds.x + bounds.width) {
+      newX = bounds.x - this._box.width;
+    }
+    this._box.x = newX;
+  }
+  moveLeft(bounds, timeDelta) {
+    this._move(bounds, timeDelta, -1);
+  }
+  moveRight(bounds, timeDelta) {
+    this._move(bounds, timeDelta, 1);
   }
 }
 
