@@ -54,7 +54,14 @@ class Block extends GameObject {
       ctx.fill();
     }
   }
-  collision(box) {}
+  collision(object) {
+    let collision = false;
+    // Only check collisions if the block is still alive
+    if (this._alive) {
+      collision = super.collision(object);
+    }
+    return collision;
+  }
 }
 
 /*
