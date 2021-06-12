@@ -174,7 +174,7 @@ class Ball extends GameObject {
     }
 
     // Check for collision with the paddle
-    let collision = game.paddle.intersects(this._box);
+    let collision = game.paddle.intersects(this);
     if (collision) {
       this._box[collision.side] = collision.pos;
       this._vector[collision.side] = -this._vector[collision.side];
@@ -183,7 +183,7 @@ class Ball extends GameObject {
     const blocks = game.blocks;
     for (let row = 0; row < blocks.length; row++) {
       for (let column = 0; column < blocks[row].length; column++) {
-        collision = blocks[row][column].intersects(this._box);
+        collision = blocks[row][column].intersects(this);
         if (collision) {
           this._box[collision.side] = collision.pos;
           this._vector[collision.side] = -this._vector[collision.side];
