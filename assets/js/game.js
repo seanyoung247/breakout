@@ -122,6 +122,15 @@ class Game {
     return this._thisFrameTime;
   }
 
+  // Checks victory condition
+  _checkVictory() {
+    let blockCount = 0;
+    for (let row = 0; row < this._blocks.length; row++) {
+      blockCount += this._blocks[row].length;
+    }
+    this._won = (blockCount <= 0);
+  }
+
   _update(time) {
     if (this._lives > 0 && !this._won) {
       // React to user input
@@ -133,6 +142,8 @@ class Game {
       }
       // Move the ball
       this._ball.move(this._bounds, time);
+      // Check for victory
+      this._checkVictory();
     }
   }
 
@@ -191,9 +202,6 @@ class Game {
 
   // Increments the score counter
   increaseScore() {}
-
-  // Checks victory condition
-  checkVictory() {}
 
   /*
    * Runs the game loop
