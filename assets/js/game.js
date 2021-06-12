@@ -96,30 +96,6 @@ class Game {
   }
 
   /*
-   * Player interaction
-   */
-  keyDown(event) {
-    const key = this._keyMap.get(event.code);
-    if (key) {
-      this._actionMap[key].down = true;
-      this._actionMap[key].up = false;
-    }
-  }
-
-  keyUp(event) {
-    const key = this._keyMap.get(event.code);
-    if (key) {
-      this._actionMap[key].down = false;
-      this._actionMap[key].up = true;
-    }
-  }
-
-  mouseMove(event) {
-    const x = event.clientX - this._paddle.dimensions.width / 2;
-    this._paddle.setXinBounds(this._bounds, x);
-  }
-
-  /*
    * Frame _update and draw methods
    */
   _startFrame(time) {
@@ -186,5 +162,43 @@ class Game {
       this._endFrame(time);
     }
     window.requestAnimationFrame((time)=>this.loop(time));
+  }
+
+  /*
+   * Object interaction
+   */
+  // Runs through all the objects and returns the first one colliding with the
+  // Object passed (or null if none)
+  checkBallCollisions() {
+    // Is the ball colliding with the paddle?
+    if (this._paddle.collision(this._ball)) return this._paddle;
+
+    // Is the the ball colliding with a block?
+
+    return null;
+  }
+
+  /*
+   * Player interaction
+   */
+  keyDown(event) {
+    const key = this._keyMap.get(event.code);
+    if (key) {
+      this._actionMap[key].down = true;
+      this._actionMap[key].up = false;
+    }
+  }
+
+  keyUp(event) {
+    const key = this._keyMap.get(event.code);
+    if (key) {
+      this._actionMap[key].down = false;
+      this._actionMap[key].up = true;
+    }
+  }
+
+  mouseMove(event) {
+    const x = event.clientX - this._paddle.dimensions.width / 2;
+    this._paddle.setXinBounds(this._bounds, x);
   }
 }
