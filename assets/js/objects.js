@@ -26,7 +26,6 @@ class GameObject extends AbstractClass {
     super(GameObject);
     this._box = boundingBox;
   }
-  update(timeDelta) {this.AbstractMethod("update");}
   draw(ctx) {this.AbstractMethod("draw");}
 }
 
@@ -38,7 +37,6 @@ class Block extends GameObject {
     super(boundingBox);
     this._alive = true;
   }
-  update(timeDelta) {}
   draw(ctx) {
     if (this._alive) {
       ctx.beginPath();
@@ -63,7 +61,9 @@ class Paddle extends Block {
   set speed(val) {
     this._speed = val;
   }
-  update(timeDelta) {}
+  move(timeDelta, direction) {
+    this._box.x = this._box.x + ((this._speed / timeDelta) * direction);
+  }
 }
 
 /*
@@ -80,7 +80,6 @@ class Ball extends GameObject {
   set vector(val) {
     this._vector = val;
   }
-  update(timeDelta) {}
   draw(ctx) {
     // Calculate the center point from the BoundingBox
     let cX = this._box.x + this._box.width / 2;
