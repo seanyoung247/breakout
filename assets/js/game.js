@@ -7,6 +7,8 @@ class Game {
     this._canvas = canvas;
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
+    this._lives = 3;
+    this._score = 0;
 
     this._setupGame();
     this._setupEvents();
