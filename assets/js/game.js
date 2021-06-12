@@ -180,20 +180,6 @@ class Game {
   }
 
   /*
-   * Object interaction
-   */
-  // Runs through all the objects and returns the first one colliding with the
-  // Object passed (or null if none)
-  checkBallCollisions() {
-    // Is the ball colliding with the paddle?
-    if (this._paddle.collision(this._ball)) return this._paddle;
-
-    // Is the the ball colliding with a block?
-
-    return null;
-  }
-
-  /*
    * Player interaction
    */
   keyDown(event) {
