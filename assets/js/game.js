@@ -7,16 +7,32 @@ class Game {
     this._canvas = canvas;
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
-    this.setupEvents();
+
     this.setupGame();
+    this.setupEvents();
+
+    // Start the game loop
+    window.requestAnimationFrame((time)=>this.loop(time));
   }
 
   /*
-   * Attaches
+   * Sets up user interaction and events
    */
   setupEvents() {
     document.addEventListener("keydown", (event)=>this.keyDown(event), false);
     document.addEventListener("keyup", (event)=>this.keyUp(event), false);
+
+    // Maps game functions to input commands
+    this._actionMap = {
+      left: {down: false, up: false},
+      right: {down: false, up: false}
+    };
+    this._actionMap.left.action = (...args)=>this._paddle.moveLeft(...args);
+    this._actionMap.right.action = (...args)=>this._paddle.moveRight(...args);
+    // Maps keys to game input commands
+    this._keyMap = new Map();
+    this._keyMap.set("ArrowLeft", "left");
+    this._keyMap.set("ArrowRight", "right");
   }
 
   /*
@@ -35,9 +51,9 @@ class Game {
         (this._canvas.width / 2) - 75,
         this._canvas.height - 30,
         150, 25
-      ), 50
+      ), 500
     );
-    
+
     // Create the ball
     this._ball = new Ball(
       new BoundingBox(
@@ -53,7 +69,7 @@ class Game {
     const blocksPerRow = Math.floor(this._canvas.width / 104);
 
     /* Calculate the actual width the blocks have to be to fill
-       the entire screen width */
+       the screen */
     const blockWidth = (this._canvas.width / blocksPerRow) - 4;
 
     // Create the blocks
@@ -70,37 +86,47 @@ class Game {
         );
       }
     }
-
-    // Start the game loop
-    this.loop(performance.now());
   }
 
   /*
    * User interaction
    */
   keyDown(event) {
-    switch(event.keyCode) {
-      case 37:  // Left Arrow Key
-        this._paddle.move(this._thisFrameTime, -1);
-        break;
-
-      case 39:  // Right Arrow Key
-        this._paddle.move(this._thisFrameTime, 1);
-        break;
+    const key = this._keyMap.get(event.code);
+    if (key) {
+      this._actionMap[key].down = true;
+      this._actionMap[key].up = false;
     }
   }
 
-  keyUp(event) {}
+  keyUp(event) {
+    const key = this._keyMap.get(event.code);
+    if (key) {
+      this._actionMap[key].down = false;
+      this._actionMap[key].up = true;
+    }
+  }
 
   /*
-   * Frame update and draw
+   * Frame update and draw methods
    */
   startFrame(time) {
-    // Stores the time since the last frame
+    // Calculate the time since the last frame
     this._thisFrameTime = time - this._lastFrameTime;
     return this._thisFrameTime;
   }
-  drawFrame() {
+
+  update(time) {
+    // React to user input
+    if (this._actionMap.left.down) {
+      this._actionMap.left.action(this._bounds, time);
+    }
+    if (this._actionMap.right.down) {
+      this._actionMap.right.action(this._bounds, time);
+    }
+  }
+
+  drawFrame(time) {
     // Get the drawing context
     const ctx = this._canvas.getContext("2d");
     // Clear the screen
@@ -108,9 +134,11 @@ class Game {
     ctx.rect(0,0,this._canvas.width,this._canvas.height);
     ctx.fill();
 
+    // Draw the game objects
     ctx.fillStyle = "white";
     this._paddle.draw(ctx);
     this._ball.draw(ctx);
+
     // Draw the blocks
     for (let row = 0; row < this._blocks.length; row++) {
       for (let column = 0; column < this._blocks[row].length; column++) {
