@@ -8,8 +8,8 @@ class Game {
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
 
-    this.setupGame();
-    this.setupEvents();
+    this._setupGame();
+    this._setupEvents();
 
     // Start the game loop
     window.requestAnimationFrame((time)=>this.loop(time));
@@ -18,7 +18,7 @@ class Game {
   /*
    * Sets up user interaction and events
    */
-  setupEvents() {
+  _setupEvents() {
     // Bind events
     document.addEventListener("keydown", (event)=>this.keyDown(event));
     document.addEventListener("keyup", (event)=>this.keyUp(event));
@@ -41,7 +41,7 @@ class Game {
   /*
    * Creates the game objects and starts the game loop
    */
-  setupGame() {
+  _setupGame() {
     // Ensure the canvas context width matches it's dom width
     this._canvas.width = this._canvas.scrollWidth;
     this._canvas.height = this._canvas.scrollHeight;
@@ -50,6 +50,7 @@ class Game {
 
     // Create the player paddle
     this._paddle = new Paddle(
+      this,
       new BoundingBox(
         (this._canvas.width / 2) - 75,
         this._canvas.height - 30,
@@ -59,10 +60,11 @@ class Game {
 
     // Create the ball
     this._ball = new Ball(
+      this,
       new BoundingBox(
         (this._canvas.width / 2) - 12.5, this._canvas.height - 55, 25, 25
       ),
-      new Vector2D(0.5,-1)
+      new Vector2D(150,-300)
     );
 
     // Calculate how many blocks per row
@@ -79,8 +81,10 @@ class Game {
     this._blocks = new Array(3);
     for (let row = 0; row < 3; row++) {
       this._blocks[row] = new Array(blocksPerRow);
+
       for (let column = 0; column < blocksPerRow; column++) {
         this._blocks[row][column] = new Block(
+          this,
           new BoundingBox(
             2 + (blockWidth + 4) * column, // X position
             100 + (54 * row),                // Y position
@@ -92,7 +96,7 @@ class Game {
   }
 
   /*
-   * User interaction
+   * Player interaction
    */
   keyDown(event) {
     const key = this._keyMap.get(event.code);
@@ -116,15 +120,15 @@ class Game {
   }
 
   /*
-   * Frame update and draw methods
+   * Frame _update and draw methods
    */
-  startFrame(time) {
+  _startFrame(time) {
     // Calculate the time since the last frame
     this._thisFrameTime = time - this._lastFrameTime;
     return this._thisFrameTime;
   }
 
-  update(time) {
+  _update(time) {
     // React to user input
     if (this._actionMap.left.down) {
       this._actionMap.left.action(this._bounds, time);
@@ -132,9 +136,11 @@ class Game {
     if (this._actionMap.right.down) {
       this._actionMap.right.action(this._bounds, time);
     }
+    // Move the ball
+    this._ball.move(this._bounds, time);
   }
 
-  drawFrame(time) {
+  _drawFrame(time) {
     // Get the drawing context
     const ctx = this._canvas.getContext("2d");
     // Clear the screen
@@ -144,8 +150,6 @@ class Game {
 
     // Draw the game objects
     ctx.fillStyle = "white";
-    this._paddle.draw(ctx);
-    this._ball.draw(ctx);
 
     // Draw the blocks
     for (let row = 0; row < this._blocks.length; row++) {
@@ -153,9 +157,13 @@ class Game {
         this._blocks[row][column].draw(ctx);
       }
     }
+
+    // Draw the Paddle and Ball
+    this._paddle.draw(ctx);
+    this._ball.draw(ctx);
   }
 
-  endFrame(time) {
+  _endFrame(time) {
     this._lastFrameTime = time;
   }
 
@@ -166,12 +174,16 @@ class Game {
     // If the screen size has changed restart the game
     if (this._canvas.width != this._canvas.scrollWidth ||
         this._canvas.height != this._canvas.scrollHeight) {
-      this.setupGame();
+      this._setupGame();
+    // Otherwise _update the game state and draw the frame
     } else {
-      let timeDelta = this.startFrame(time) / 1000;
-      this.update(timeDelta)
-      this.drawFrame(timeDelta)
-      this.endFrame(time);
+      // Time since the last frame in seconds
+      let timeDelta = this._startFrame(time) / 1000;
+
+        this._update(timeDelta);
+        this._drawFrame(timeDelta);
+
+      this._endFrame(time);
     }
     window.requestAnimationFrame((time)=>this.loop(time));
   }
