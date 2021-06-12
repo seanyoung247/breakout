@@ -58,7 +58,7 @@ class Block extends GameObject {
 /*
  * Defines a player controlled paddle
  */
-class Paddle extends Block {
+class Paddle extends GameObject {
   constructor(game, boundingBox, speed) {
     super(game, boundingBox);
     // Speed the paddle can move in pixels a second
@@ -70,7 +70,11 @@ class Paddle extends Block {
   set speed(val) {
     this._speed = val;
   }
-  collision(box) {}
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.rect(this._box.x, this._box.y, this._box.width, this._box.height);
+    ctx.fill();
+  }
   setXinBounds(bounds, x) {
     // Clamp to the left side of the screen
     if (x < bounds.x) {
