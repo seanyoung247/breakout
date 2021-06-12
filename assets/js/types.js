@@ -94,6 +94,7 @@ class Vector2D extends Point2D {
 
 /*
  * Defines a rectanglular region in 2D space that can collide and detect collision
+ * Implements an Axis Aligned Bounding Box (AABB)
  */
 class BoundingBox {
   constructor(x, y, width, height) {
@@ -146,7 +147,7 @@ class BoundingBox {
     return false;
   }
   // Checks whether any part of boundingBox passed is colliding with this one,
-  // (partial collision). Basic AABB collision detection
+  // (partial collision).
   collides(box) {
     if (this._x < box._x + box._w &&
         this._x + this._w > box._x &&
