@@ -16,6 +16,7 @@ class Game {
    */
   setupEvents() {
     document.addEventListener("keydown", (event)=>this.keyDown(event), false);
+    document.addEventListener("keyup", (event)=>this.keyUp(event), false);
   }
 
   /*
@@ -71,15 +72,18 @@ class Game {
    * User interaction
    */
   keyDown(event) {
-    // left == 37
-    // right == 39
+    switch(event.keyCode) {
+      case 37:  // Left Arrow Key
+        this._paddle.move(this._thisFrameTime, -1);
+        break;
 
-    console.log(event);
+      case 39:  // Right Arrow Key
+        this._paddle.move(this._thisFrameTime, 1);
+        break;
+    }
   }
 
-  keyUp(event) {
-    console.log(event);
-  }
+  keyUp(event) {}
 
   /*
    * Frame update and draw
@@ -127,6 +131,6 @@ class Game {
       this.drawFrame()
       this.endFrame(time);
     }
-    window.requestAnimationFrame(()=>this.loop());
+    window.requestAnimationFrame((time)=>this.loop(time));
   }
 }
