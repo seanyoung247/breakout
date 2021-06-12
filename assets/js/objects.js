@@ -189,6 +189,8 @@ class Ball extends GameObject {
           // Remove the dead block from the list
           blocks[row].splice(column, 1);
           column--;
+          // Increment the score counter
+          game.increaseScore();
         }
       }
     }

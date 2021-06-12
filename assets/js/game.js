@@ -7,9 +7,6 @@ class Game {
     this._canvas = canvas;
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
-    this._lives = 3;
-    this._score = 0;
-    this._won = false;
 
     this._setupGame();
     this._setupEvents();
@@ -60,6 +57,11 @@ class Game {
    * Creates the game objects and starts the game loop
    */
   _setupGame() {
+    // Setup game variables
+    this._lives = 3;
+    this._score = 0;
+    this._won = false;
+
     // Ensure the canvas context width matches it's dom width
     this._canvas.width = this._canvas.scrollWidth;
     this._canvas.height = this._canvas.scrollHeight;
@@ -201,7 +203,9 @@ class Game {
   }
 
   // Increments the score counter
-  increaseScore() {}
+  increaseScore() {
+    this._score++;
+  }
 
   /*
    * Runs the game loop
