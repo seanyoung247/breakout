@@ -34,7 +34,9 @@ class GameObject extends AbstractClass {
     this._box = val
   }
   draw(ctx) {this.AbstractMethod("draw");}
-  collision(box) {this.AbstractMethod("collision");}
+  collision(object) {
+    return this._box.collides(object._box);
+  }
 }
 
 /*
