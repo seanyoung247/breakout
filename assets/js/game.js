@@ -173,17 +173,26 @@ class Game {
     if (this._lives > 0 && !this._won) this._ball.draw(ctx);
 
     // Draw score and lives
-    ctx.font = "32px 'Press Start 2P'";
+    ctx.font = "48px 'Press Start 2P'";
     ctx.textAlign = "start";
-    ctx.fillText(this._score, 15, 42);
+    ctx.fillText(this._score, 15, 58);
+
+    for (let i = 0; i < this._lives; i++) {
+      let x = (this._canvas.width - 15) - (30 * i);
+      ctx.beginPath();
+      ctx.arc(x, 25, 12.5, 0, 2 * Math.PI);
+      ctx.fill();
+    }
 
     if (this._lives <= 0) {
       // Draw game lost text
       ctx.textAlign = "center";
+      ctx.font = "32px 'Press Start 2P'";
       ctx.fillText("Game over!", this._canvas.width / 2, this._canvas.height / 2);
     } else if (this._won) {
       // Draw the game won text
       ctx.textAlign = "center";
+      ctx.font = "32px 'Press Start 2P'";
       ctx.fillText("You Won!", this._canvas.width / 2, this._canvas.height / 2);
     }
   }
