@@ -129,20 +129,25 @@ class Ball extends GameObject {
     ctx.arc(cX, cY, this._box.width / 2, 0, 2 * Math.PI);
     ctx.fill();
   }
-  collision(box) {}
   move(bounds, timeDelta) {
     // Calculate new position
     this._box.x = this._box.x + (this.vector.x * timeDelta);
     this._box.y = this._box.y + (this.vector.y * timeDelta);
+
     // Check the ball will still be in bounds
-    if (this._box.x < bounds.x ||
-        this._box.x + this._box.width > bounds.x + bounds.width) {
-      // Bounce from the top bottom
+    if (this._box.x < bounds.x) {
+      // Hit the left side of the screen
+      this._box.x = bounds.x;
       this._vector.x = -this._vector.x;
     }
-    if (this._box.y < bounds.y ||
-        this._box.y + this._box.height > bounds.y + bounds.height) {
-      // Bounce from the top bottom
+    if (this._box.x + this._box.width > bounds.x + bounds.width) {
+      // Hit the right side of the screen
+      this._box.x = bounds.x + (bounds.width - this._box.width);
+      this._vector.x = -this._vector.x;
+    }
+    if (this._box.y < bounds.y) {
+      // Hit the top of the screen
+      this._box.y = bounds.y;
       this._vector.y = -this._vector.y;
     }
     // Check for object collisions
