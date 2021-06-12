@@ -62,6 +62,7 @@ class Block extends GameObject {
     // Only check collisions if the block is still alive
     if (this._alive) {
       collision = super.collision(object);
+      this._alive = !collision;
     }
     return collision;
   }
