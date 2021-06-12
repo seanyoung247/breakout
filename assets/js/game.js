@@ -172,10 +172,19 @@ class Game {
     // Hide the ball if the game isn't actively playing
     if (this._lives > 0 && !this._won) this._ball.draw(ctx);
 
+    // Draw score and lives
+    ctx.font = "32px 'Press Start 2P'";
+    ctx.textAlign = "start";
+    ctx.fillText(this._score, 15, 42);
+
     if (this._lives <= 0) {
       // Draw game lost text
+      ctx.textAlign = "center";
+      ctx.fillText("Game over!", this._canvas.width / 2, this._canvas.height / 2);
     } else if (this._won) {
       // Draw the game won text
+      ctx.textAlign = "center";
+      ctx.fillText("You Won!", this._canvas.width / 2, this._canvas.height / 2);
     }
   }
 
