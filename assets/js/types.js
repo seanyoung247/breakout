@@ -1,30 +1,57 @@
-/*
+/**
  * Models a point in 2D space
  */
 class Point2D {
+  /**
+   * Creates a point
+   *  @param {number} x - The x axis coordinate of the point
+   *  @param {number} y - The y axis coordinate of the point
+   */
   constructor(x, y) {
     this._x = x;
     this._y = y;
   }
-  // Getters and Setters
-  get x() {
-    return this._x;
-  }
-  set x(val) {
-    this._x = val;
-  }
-  get y() {
-    return this._y;
-  }
-  set y(val) {
-    this._y = val;
-  }
-  // Copies one point to another
+  /**
+   * Copies the values of another point to this one
+   *  @param {Object} point - The point to copy to this one
+   */
   copy(point) {
     this._x = point._x;
     this._y = point._y;
   }
-  // Calculates the distance between two points
+  /**
+   * Gets the x coordinate of this point
+   *  @return {number} The x axis coordinate
+   */
+  get x() {
+    return this._x;
+  }
+  /**
+   * Gets the x coordinate of this point
+   *  @param {number} val - The new value for the x axis coordinate
+   */
+  set x(val) {
+    this._x = val;
+  }
+  /**
+   * Gets the x coordinate of this point
+   *  @return {number} The y axis coordinate
+   */
+  get y() {
+    return this._y;
+  }
+  /**
+   * Gets the y coordinate of this point
+   *  @param {number} val - The new value for the y axis coordinate
+   */
+  set y(val) {
+    this._y = val;
+  }
+  /**
+   * Calculates the distance between two points
+   *  @param {Object} point - The point to measure distance to
+   *  @return {number} The distance between this point and the one passed
+   */
   distanceTo(point) {
     const x = point._x - this._x;
     const y = point._y - this._y;
@@ -34,6 +61,7 @@ class Point2D {
 
 /**
  * Models a 2D vector
+ *  @extends Point2D
  */
 class Vector2D extends Point2D {
   /**
