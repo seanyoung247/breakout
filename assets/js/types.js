@@ -32,23 +32,37 @@ class Point2D {
   }
 }
 
-/*
+/**
  * Models a 2D vector
  */
 class Vector2D extends Point2D {
+  /**
+   * Creates a Vector
+   *  @param {number} x - The x axis scalar of the vector
+   *  @param {number} y - The y axis scalar of the vector
+   */
   constructor(x, y) {
     super(x, y);
   }
-  // Normaizes this vector. A normalized vector is one with a magnitude of 1.
+  /**
+   * Normaizes this vector. A normalized vector is one with a magnitude of 1.
+   */
   normalize() {
     const mag = this.magnitude;
     this._x /= mag;
     this._y /= mag;
   }
-  // Returns the euclidean distance (length) of this vector
+  /**
+   * Gets the euclidean distance (length) of this vector
+   *  @return {number} The magintude of this vector
+   */
   get magnitude() {
     return Math.sqrt(this._x * this._x + this._y * this._y);
   }
+  /**
+   * Rescales this vector to a new magnitude
+   *  @param {number} val - the new magnitude of the vector
+   */
   set magnitude(val) {
     // First reset the length of the vector to 1
     this.normalize();
@@ -56,37 +70,66 @@ class Vector2D extends Point2D {
     this._x *= val;
     this._y *= val;
   }
-  // Converts to and from angular vector notation
+  /**
+   * Converts to this vector to angular vector notation
+   *  @return {number} the angle of this vector in radians
+   */
   get radian() {
     return Math.atan2(this._y, this._x);
   }
+  /**
+   * Converts this vector from angular vector notation
+   *  @param {number} val - The new angular value
+   */
   set radian(val) {
     this._x = Math.cos(val);
     this._y = Math.sin(val);
   }
-  // Methods to rotate a vector
+  /**
+   * Rotates this vector by another vector in a given direction
+   *  @param {number} x - The x scalar of the vector to rotate by
+   *  @param {number} y - The y scalar of the vector to rotate by
+   *  @param {number} direction - 1 to rotate clockwise, -1 to rotate anti-clockwise
+   */
   rotate(x, y, direction = -1) {
     const tX = this._x * x + (this._y * direction) * y;
     const tY = (this._x * y + (this._y * direction) * x) * direction;
     this._x = tX;
     this._y = tY;
   }
+  // Addative rotation
+  /**
+   * Rotates this vector clockwise by an angle in radians
+   *  @param {number} radians - The angle to rotate by in radians
+   */
   rotateByRadians(radians) {
     this.rotate(
       Math.cos(radians),
       Math.sin(radians)
     );
   }
+  /**
+   * Rotates this vector clockwise by another vector
+   *  @param {number} vector - The vector to rotate by
+   */
   rotateByVector(vector) {
     this.rotate(vector._x, vector._y);
   }
-  // Subtractive Rotate
+  // Subtractive Rotation
+  /**
+   * Rotates this vector anti-clockwise by an angle in radians
+   *  @param {number} radians - The angle to rotate by in radians
+   */
   unrotateByRadians(radians) {
     this.rotate(
       Math.cos(radians),
       Math.sin(radians), 1
     );
   }
+  /**
+   * Rotates this vector anti-clockwise by another vector
+   *  @param {number} vector - The vector to rotate by
+   */
   unrotateByVector(vector) {
     this.rotate(vector._x, vector._y, 1);
   }
