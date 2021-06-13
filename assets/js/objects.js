@@ -80,17 +80,31 @@ class GameObject extends AbstractClass {
   }
 }
 
-/*
+/**
  * Defines a destroyable block
+ *  @extends GameObject
  */
 class Block extends GameObject {
+  /**
+   * Creates a Block
+   *  @param {Object} game - The game manager class
+   *  @param {Object} boundingBox - Initial size and position of this Block
+   */
   constructor(game, boundingBox) {
     super(game, boundingBox);
     this._alive = true;
   }
+  /**
+   * Gets whether this Block is still alive
+   *  @return {boolean} True/False if the Block is still alive
+   */
   get isAlive() {
     return this._alive;
   }
+  /**
+   * Draws this block on the screen
+   *  @param {Object} ctx - The Canvas rendering context to draw to.
+   */
   draw(ctx) {
     if (this._alive) {
       ctx.beginPath();
@@ -98,6 +112,11 @@ class Block extends GameObject {
       ctx.fill();
     }
   }
+  /**
+   * Simple collision test between this GameObject and another
+   *  @param {Object} object - The GameObject to check for intersection
+   *  @return {boolean} true/false if colliding
+   */
   collision(object) {
     let collision = false;
     // Only check collisions if the block is still alive
@@ -107,6 +126,13 @@ class Block extends GameObject {
     }
     return collision;
   }
+  /**
+   * Performs a comprehensive collision test that checks where the two objects are
+   * overlapping and indicates the closest point to move them out of collision.
+   *  @param {Object} object - The object to check for intersection
+   *  @return {Object} a dictionary with side: axis of intersection and
+   *                     pos: closest point of non-intersection
+   */
   intersects(object) {
     let collision = false;
     // Only check collisions if the block is still alive
