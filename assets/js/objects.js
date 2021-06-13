@@ -152,7 +152,7 @@ class Paddle extends GameObject {
   /**
    * Creates a Paddle
    *  @param {Object} game - The game manager class
-   *  @param {Object} boundingBox - Initial size and position of this Block
+   *  @param {Object} boundingBox - Initial size and position of this Paddle
    *  @param {number} speed - The movement speed of this paddle in pixels a second
    */
   constructor(game, boundingBox, speed) {
@@ -221,20 +221,39 @@ class Paddle extends GameObject {
   }
 }
 
-/*
+/**
  * Defines a basic ball
+ *  @extends GameObject
  */
 class Ball extends GameObject {
+  /**
+   * Creates a Ball
+   *  @param {Object} game - The game manager class
+   *  @param {Object} boundingBox - Initial size and position of this Ball
+   *  @param {Object} initalVector - Initial movement vector of the Ball
+   */
   constructor(game, boundingBox, initalVector) {
     super(game, boundingBox);
     this._vector = initalVector;
   }
+  /**
+   * Gets this Ball's current movement vector
+   *  @return {Object} The current movement Vector2D
+   */
   get vector() {
     return this._vector;
   }
+  /**
+   * Sets the Balls movement vector
+   *  @param {Object} val - The new Vector2D
+   */
   set vector(val) {
     this._vector = val;
   }
+  /**
+   * Draws this Ball on the screen
+   *  @param {Object} ctx - The Canvas rendering context to draw to.
+   */
   draw(ctx) {
     // Calculate the center point from the BoundingBox
     let cX = this._box.x + this._box.width / 2;
@@ -244,6 +263,11 @@ class Ball extends GameObject {
     ctx.arc(cX, cY, this._box.width / 2, 0, 2 * Math.PI);
     ctx.fill();
   }
+  /**
+   * Moves the ball based on it's movement vector and the time since the last update
+   *  @param {Object} bounds - BoundingBox the Ball should stay within
+   *  @param {number} timeDelta - The time in seconds since the last update
+   */
   move(bounds, timeDelta) {
     // Calculate new position
     this._box.x = this._box.x + (this.vector.x * timeDelta);
