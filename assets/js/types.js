@@ -92,52 +92,88 @@ class Vector2D extends Point2D {
   }
 }
 
-/*
+/**
  * Defines a rectanglular region in 2D space that can collide and detect collision
  * Implements an Axis Aligned Bounding Box (AABB)
  */
 class BoundingBox {
+  /**
+   * Creates a new bounding box
+   *  @param {number} x - The x position of the top left corner
+   *  @param {number} y - The y position of the top left corner
+   *  @param {number} width - The width of the box
+   *  @param {number} height - The height of the box
+   */
   constructor(x, y, width, height) {
     this._x = x;
     this._y = y;
     this._w = width;
     this._h = height;
   }
+  /**
+   * Copies the values of another BoundingBox to this one
+   *  @param {Object} box - the BoundingBox to copy
+   */
   copy(box) {
     this._x = box._x;
     this._y = box._y;
     this._w = box._w;
     this._h = box._h;
   }
+  /**
+   * Get the x value
+   *  @return {number} The x value
+   */
   get x() {
     return this._x;
   }
   set x(val) {
     this._x = val;
   }
+  /**
+   * Get the y value
+   *  @return {number} The y value
+   */
   get y() {
     return this._y;
   }
   set y(val) {
     this._y = val;
   }
+  /**
+   * Get the width value
+   *  @return {number} The width value
+   */
   get width() {
     return this._w;
   }
   set width(val) {
     this._w = val;
   }
+  /**
+   * Get the height value
+   *  @return {number} The height value
+   */
   get height() {
     return this._h;
   }
   set height(val) {
     this._h = val;
   }
-  // Checks whether the point is within the box boundary
+  /**
+   * Checks whether the point is within the box boundary
+   *  @param {Object} point - The Point2D cordinates to check
+   *  @return {boolean} true if the point is inside this box, otherwise false
+   */
   pointInBounds(point) {
     return this.inBounds(point._x, point._y);
   }
-  // Checks whether the x,y co-ordinate passed is within the box boundary
+  /**
+   * Checks whether the x,y coordinate passed is within the box boundary
+   *  @param {number} x - The x coordinate
+   *  @param {number} y - The y coordinate
+   *  @return {boolean} true if the point is inside this box, otherwise false
+   */
   inBounds(x, y) {
     if (x >= this._x && y >= this._y &&
         x <= (this._x + this._w) &&
@@ -146,8 +182,11 @@ class BoundingBox {
     }
     return false;
   }
-  // Checks whether any part of boundingBox passed is colliding with this one,
-  // (partial collision).
+  /**
+   * Performs a simple collision check on another boundingBox.
+   *  @param {Object} box - The BoundingBox to check for intersection
+   *  @return {boolean} true if colliding
+   */
   collides(box) {
     if (this._x < box._x + box._w &&
         this._x + this._w > box._x &&
@@ -157,8 +196,13 @@ class BoundingBox {
     }
     return false;
   }
-  // A more rigorous collision test. Returns null for no collision,
-  // Otherwise returns a
+  /**
+   * Performs a comprehensive collision test that checks where the two boxes are
+   * overlapping and indicates the closest point to move them out of collision.
+   *  @param {Object} box - The BoundingBox to check for intersection
+   *  @return {Object} a dictionary with side: axis of intersection and
+   *                     pos: closest point of non-intersection
+   */
   intersects(box) {
     // Find the amount of intersection for the left and right sides
     const x1 = (box._x + box._w) - this._x;
@@ -175,6 +219,7 @@ class BoundingBox {
     // If x is negative there's no collision in x which means
     // the boxes aren't intersecting
     if (x < 0) return null;
+
     // Find the amount of intersection for the top and bottom sides
     const y1 = (box._y + box._h) - this._y;
     const y2 = (this._y + this._h) - box._y;
@@ -187,7 +232,8 @@ class BoundingBox {
       yPos = this._y + this._h + 1;
     }
     if (y < 0) return null;
-    // Find the closest side
+
+    // Find the closest axis
     if (x < y) {
       // x collision
       return {side: 'x', pos: xPos};
@@ -196,7 +242,11 @@ class BoundingBox {
     }
   }
 
-  // Checks the entire boundingBox passed is inside this one (complete collision)
+  /**
+   * Checks the entire boundingBox passed is inside this one.
+   *  @param {Object} box - The box to check
+   *  @return {boolean} True/False whether the box passed is contained within this one
+   */
   contains(box) {
     if (this._x < box._x && this._y < box._y &&
         this._x + this._w > box._x + box._w &&
