@@ -1,7 +1,11 @@
-/*
- * Enforces the abstract class
+/**
+ * Enforces the abstract class paradigm
  */
 class AbstractClass {
+  /**
+   * Ensures the class being created is a derived class not a base class
+   *  @param {Object} BaseClass - The baseclass that is abstract
+   */
   constructor(BaseClass) {
     this._baseClass = BaseClass;
     if (this.constructor === AbstractClass) {
@@ -11,6 +15,10 @@ class AbstractClass {
       throw new TypeError(`Abstract class "${this._baseClass.name}" cannot be instantiated directly`);
     }
   }
+  /**
+   * Raises an error if an abstract base class method is called
+   *  @param {string} methodName - The name of the method that is abstract
+   */
   AbstractMethod(methodName) {
     throw new TypeError(
       `${this._baseClass.name}: Abstract method "${methodName}" not overridden by derived class "${this.constructor.name}".`
@@ -18,25 +26,55 @@ class AbstractClass {
   }
 }
 
-/*
+/**
  * Defines the base functionality of interactive game objects
+ *  @extends AbstractClass
  */
 class GameObject extends AbstractClass {
+  /**
+   * Creates a base GameObject
+   *  @param {Object} game - The game manager class
+   *  @param {Object} boundingBox - Initial size and position of this GameObject
+   */
   constructor(game, boundingBox) {
     super(GameObject);
     this._game = game;
     this._box = boundingBox;
   }
+  /**
+   * Gets the bounding box dimensions of this Object
+   *  @return {Object} This GameObject's BoundingBox
+   */
   get dimensions() {
     return this._box;
   }
+  /**
+   * Sets the bounding box dimensions of this Object
+   *  @param {Object} val - The new BoundingBox
+   */
   set dimensions(val) {
     this._box = val
   }
+  /**
+   * Abstract interface definition for the draw method.
+   * Must be overridden in derived classes.
+   */
   draw(ctx) {this.AbstractMethod("draw");}
+  /**
+   * Simple collision test between this GameObject and another
+   *  @param {Object} object - The GameObject to check for intersection
+   *  @return {boolean} true/false if colliding
+   */
   collision(object) {
     return this._box.collides(object._box);
   }
+  /**
+   * Performs a comprehensive collision test that checks where the two objects are
+   * overlapping and indicates the closest point to move them out of collision.
+   *  @param {Object} object - The object to check for intersection
+   *  @return {Object} a dictionary with side: axis of intersection and
+   *                     pos: closest point of non-intersection
+   */
   intersects(object) {
     return this._box.intersects(object._box);
   }
