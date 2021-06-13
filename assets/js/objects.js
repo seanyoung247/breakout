@@ -144,26 +144,50 @@ class Block extends GameObject {
   }
 }
 
-/*
+/**
  * Defines a player controlled paddle
+ *  @extends GameObject
  */
 class Paddle extends GameObject {
+  /**
+   * Creates a Paddle
+   *  @param {Object} game - The game manager class
+   *  @param {Object} boundingBox - Initial size and position of this Block
+   *  @param {number} speed - The movement speed of this paddle in pixels a second
+   */
   constructor(game, boundingBox, speed) {
     super(game, boundingBox);
     // Speed the paddle can move in pixels a second
     this._speed = speed;
   }
+  /**
+   * Gets this Paddles current movement speed
+   *  @return {number} The movement speed of this Paddle
+   */
   get speed() {
     return this._speed;
   }
+  /**
+   * Sets the Paddle's movement speed
+   *  @param {number} val - The new movement speed
+   */
   set speed(val) {
     this._speed = val;
   }
+  /**
+   * Draws this Paddle on the screen
+   *  @param {Object} ctx - The Canvas rendering context to draw to.
+   */
   draw(ctx) {
     ctx.beginPath();
     ctx.rect(this._box.x, this._box.y, this._box.width, this._box.height);
     ctx.fill();
   }
+  /**
+   * Sets the x position of this Paddle while keeping it within the boundary passed
+   *  @param {object} bounds - BoundingBox the Paddle should stay within
+   *  @param {number} x - The new x coordinate
+   */
   setXinBounds(bounds, x) {
     // Clamp to the left side of the screen
     if (x < bounds.x) {
@@ -175,12 +199,23 @@ class Paddle extends GameObject {
     }
     this._box.x = x;
   }
+  // Generalised movement function, for internal use
   _move(bounds, timeDelta, direction) {
     this.setXinBounds(bounds, this._box.x + ((this._speed * timeDelta) * direction));
   }
+  /**
+   * Moves the paddle left based on it's speed and the time since the last update
+   *  @param {Objects} bounds - BoundingBox the Paddle should stay within
+   *  @param {number} timeDelta - The time in seconds since the last update
+   */
   moveLeft(bounds, timeDelta) {
     this._move(bounds, timeDelta, -1);
   }
+  /**
+   * Moves the paddle right based on it's speed and the time since the last update
+   *  @param {Objects} bounds - BoundingBox the Paddle should stay within
+   *  @param {number} timeDelta - The time in seconds since the last update
+   */
   moveRight(bounds, timeDelta) {
     this._move(bounds, timeDelta, 1);
   }
