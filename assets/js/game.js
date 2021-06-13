@@ -1,8 +1,12 @@
-/*
+/**
  * Defines the main game controller object. Manages game state, user input and
  * game objects.
  */
 class Game {
+  /**
+   * Creates a game
+   *  @param {Object} canvas - The canvas element for rendering
+   */
   constructor(canvas) {
     this._canvas = canvas;
     this._thisFrameTime = 0;
@@ -15,24 +19,29 @@ class Game {
     window.requestAnimationFrame((time)=>this.loop(time));
   }
 
-  /*
-   * Getters for the game objects
+  /**
+   * Gets the paddle game object
+   *  @return {Object} The current game's paddle object
    */
   get paddle() {
     return this._paddle;
   }
-
+  /**
+   * Gets the ball game object
+   *  @return {Object} The current game's ball object
+   */
   get ball() {
     return this._ball;
   }
-
+  /**
+   * Gets the blocks game object
+   *  @return {Object} The current game's blocks object
+   */
   get blocks() {
     return this._blocks;
   }
 
-  /*
-   * Sets up user interaction and events
-   */
+  // Internal function to setup user interaction and events
   _setupEvents() {
     // Bind events
     document.addEventListener("keydown", (event)=>this.keyDown(event));
@@ -53,9 +62,7 @@ class Game {
     this._keyMap.set("ArrowRight", "right");
   }
 
-  /*
-   * Creates the game objects and starts the game loop
-   */
+  // Internal function, Creates the game objects and starts the game loop
   _setupGame() {
     // Setup game variables
     this._lives = 3;
@@ -106,8 +113,8 @@ class Game {
         this._blocks[row][column] = new Block(
           this,
           new BoundingBox(
-            2 + (blockWidth + 4) * column, // X position
-            100 + (54 * row),                // Y position
+            2 + (blockWidth + 4) * column,  // X position
+            100 + (54 * row),               // Y position
             blockWidth, 50                  // Width and height
           )
         );
@@ -115,16 +122,14 @@ class Game {
     }
   }
 
-  /*
-   * Frame _update and draw methods
-   */
+  // Internal Function. Starts the frame and logs the frame time
   _startFrame(time) {
     // Calculate the time since the last frame
     this._thisFrameTime = time - this._lastFrameTime;
     return this._thisFrameTime;
   }
 
-  // Checks victory condition
+  // Internal Function. Checks victory condition
   _checkVictory() {
     let blockCount = 0;
     for (let row = 0; row < this._blocks.length; row++) {
@@ -133,6 +138,7 @@ class Game {
     this._won = (blockCount <= 0);
   }
 
+  // Internal Function. Updates the game state on each frame
   _update(time) {
     if (this._lives > 0 && !this._won) {
       // React to user input
@@ -149,6 +155,7 @@ class Game {
     }
   }
 
+  // Internal Function. Draws the frame to the screen
   _drawFrame(time) {
     // Get the drawing context
     const ctx = this._canvas.getContext("2d");
@@ -157,7 +164,7 @@ class Game {
     ctx.rect(0,0,this._canvas.width,this._canvas.height);
     ctx.fill();
 
-    // Draw the game objects
+    // Set the screen draw colour
     ctx.fillStyle = "white";
 
     // Draw the blocks
@@ -172,11 +179,12 @@ class Game {
     // Hide the ball if the game isn't actively playing
     if (this._lives > 0 && !this._won) this._ball.draw(ctx);
 
-    // Draw score and lives
+    // Draw score
     ctx.font = "48px 'Press Start 2P'";
     ctx.textAlign = "start";
     ctx.fillText(this._score, 15, 58);
 
+    // Draw remaining lives
     for (let i = 0; i < this._lives; i++) {
       let x = (this._canvas.width - 15) - (30 * i);
       ctx.beginPath();
@@ -196,7 +204,7 @@ class Game {
       ctx.fillText("You Won!", this._canvas.width / 2, this._canvas.height / 2);
     }
   }
-
+  // Internal Function. Ends this frame and logs end time
   _endFrame(time) {
     this._lastFrameTime = time;
   }
@@ -204,8 +212,10 @@ class Game {
   /*
    * Game state
    */
-  // Decrements the lives counter and sets the ball and paddle
-  // back to default position
+  /**
+   * Decrements the lives counter and sets the ball and paddle
+   * back to default position.
+   */
   loseALife() {
     this._lives--;
     if (this._lives > 0) {
@@ -220,13 +230,16 @@ class Game {
     }
   }
 
-  // Increments the score counter
+  /**
+   * Increments the score counter
+   */
   increaseScore() {
     this._score++;
   }
 
-  /*
-   * Runs the game loop
+  /**
+   * Runs the game loop. Should only be called via requestAnimationFrame
+   *  @param {number} time - current time in miliseconds
    */
   loop(time) {
     // If the screen size has changed restart the game
