@@ -133,7 +133,9 @@ class Game {
   _checkVictory() {
     let blockCount = 0;
     for (let row = 0; row < this._blocks.length; row++) {
-      blockCount += this._blocks[row].length;
+      for (let column = 0; column < this._blocks[row].length; column++) {
+        blockCount += this._blocks[row][column].isAlive;
+      }
     }
     this._won = (blockCount <= 0);
   }
