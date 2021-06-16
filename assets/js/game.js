@@ -283,7 +283,7 @@ class Game {
   mouseMove(event) {
     if (this._lives > 0 && !this._won) {
       const x = event.clientX - this._paddle.dimensions.width / 2;
-      this._paddle.setXinBounds(this._bounds, x);
+      this._paddle.setPosInBounds(this._bounds, x);
     }
   }
 }

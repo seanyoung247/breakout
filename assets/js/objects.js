@@ -181,7 +181,7 @@ class Paddle extends GameObject {
    *  @param {object} bounds - BoundingBox the Paddle should stay within
    *  @param {number} x - The new x coordinate
    */
-  setXinBounds(bounds, x) {
+  setPosInBounds(bounds, x) {
     // Clamp to the left side of the screen
     if (x < bounds.x) {
       x = bounds.x;
@@ -194,7 +194,7 @@ class Paddle extends GameObject {
   }
   // Generalised movement function, for internal use
   _move(bounds, timeDelta, direction) {
-    this.setXinBounds(bounds, this._box.x + ((this._speed * timeDelta) * direction));
+    this.setPosInBounds(bounds, this._box.x + ((this._speed * timeDelta) * direction));
   }
   /**
    * Moves the paddle left based on it's speed and the time since the last update
