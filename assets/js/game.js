@@ -19,28 +19,6 @@ class Game {
     window.requestAnimationFrame((time)=>this.loop(time));
   }
 
-  /**
-   * Gets the paddle game object
-   *  @return {Object} The current game's paddle object
-   */
-  get paddle() {
-    return this._paddle;
-  }
-  /**
-   * Gets the ball game object
-   *  @return {Object} The current game's ball object
-   */
-  get ball() {
-    return this._ball;
-  }
-  /**
-   * Gets the blocks game object
-   *  @return {Object} The current game's blocks object
-   */
-  get blocks() {
-    return this._blocks;
-  }
-
   // Internal function to setup user interaction and events
   _setupEvents() {
     // Bind events
@@ -120,6 +98,28 @@ class Game {
         );
       }
     }
+  }
+
+  /**
+   * Gets the paddle game object
+   *  @return {Object} The current game's paddle object
+   */
+  get paddle() {
+    return this._paddle;
+  }
+  /**
+   * Gets the ball game object
+   *  @return {Object} The current game's ball object
+   */
+  get ball() {
+    return this._ball;
+  }
+  /**
+   * Gets the blocks game object
+   *  @return {Object} The current game's blocks object
+   */
+  get blocks() {
+    return this._blocks;
   }
 
   // Internal Function. Starts the frame and logs the frame time
