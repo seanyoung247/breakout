@@ -166,8 +166,9 @@ class Vector2D extends Point2D {
 /**
  * Defines a rectanglular region in 2D space that can collide and detect collision
  * Implements an Axis Aligned Bounding Box (AABB)
+ *  @extends Point2D
  */
-class BoundingBox {
+class BoundingBox extends Point2D {
   /**
    * Creates a new bounding box
    *  @param {number} x - The x position of the top left corner
@@ -176,8 +177,7 @@ class BoundingBox {
    *  @param {number} height - The height of the box
    */
   constructor(x, y, width, height) {
-    this._x = x;
-    this._y = y;
+    super(x, y);
     this._w = width;
     this._h = height;
   }
@@ -190,26 +190,6 @@ class BoundingBox {
     this._y = box._y;
     this._w = box._w;
     this._h = box._h;
-  }
-  /**
-   * Get the x value
-   *  @return {number} The x value
-   */
-  get x() {
-    return this._x;
-  }
-  set x(val) {
-    this._x = val;
-  }
-  /**
-   * Get the y value
-   *  @return {number} The y value
-   */
-  get y() {
-    return this._y;
-  }
-  set y(val) {
-    this._y = val;
   }
   /**
    * Get the width value
