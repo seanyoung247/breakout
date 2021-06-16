@@ -49,13 +49,6 @@ class GameObject extends AbstractClass {
     return this._box;
   }
   /**
-   * Sets the bounding box dimensions of this Object
-   *  @param {Object} val - The new BoundingBox
-   */
-  set dimensions(val) {
-    this._box = val
-  }
-  /**
    * Abstract interface definition for the draw method.
    * Must be overridden in derived classes.
    */
@@ -242,13 +235,6 @@ class Ball extends GameObject {
    */
   get vector() {
     return this._vector;
-  }
-  /**
-   * Sets the Balls movement vector
-   *  @param {Object} val - The new Vector2D
-   */
-  set vector(val) {
-    this._vector = val;
   }
   /**
    * Draws this Ball on the screen
