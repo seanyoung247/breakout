@@ -11,6 +11,7 @@ class Game {
     this._canvas = canvas;
     this._thisFrameTime = 0;
     this._lastFrameTime = 0;
+    this._demo = false;
 
     this._setupGame();
     this._setupEvents();
@@ -29,15 +30,18 @@ class Game {
     // Maps game functions to input commands
     this._actionMap = {
       left: {down: false, up: false},
-      right: {down: false, up: false}
+      right: {down: false, up: false},
+      demo: {down: false, up: false}
     };
     this._actionMap.left.action = (...args)=>this._paddle.moveLeft(...args);
     this._actionMap.right.action = (...args)=>this._paddle.moveRight(...args);
+    this._actionMap.demo.action = ()=>this._demo=!this._demo;
 
     // Maps keys to game input commands
     this._keyMap = new Map();
     this._keyMap.set("ArrowLeft", "left");
     this._keyMap.set("ArrowRight", "right");
+    this._keyMap.set("KeyD", "demo");
   }
 
   // Internal function, Creates the game objects and starts the game loop
@@ -149,6 +153,14 @@ class Game {
       }
       if (this._actionMap.right.down) {
         this._actionMap.right.action(this._bounds, time);
+      }
+      if (this._actionMap.demo.down) {
+        this._actionMap.demo.action();
+      }
+      // If in demo mode move the paddle to the ball
+      if (this._demo) {
+        const x = this._ball.dimensions.x - this._paddle.dimensions.width / 2;
+        this._paddle.setPosInBounds(this._bounds, x);
       }
       // Move the ball
       this._ball.move(this._bounds, time);
@@ -281,7 +293,7 @@ class Game {
   }
 
   mouseMove(event) {
-    if (this._lives > 0 && !this._won) {
+    if (this._lives > 0 && !this._won && !this._demo) {
       const x = event.clientX - this._paddle.dimensions.width / 2;
       this._paddle.setPosInBounds(this._bounds, x);
     }
