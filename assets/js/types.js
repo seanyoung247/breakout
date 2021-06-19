@@ -120,7 +120,7 @@ class Vector2D extends Point2D {
    *  @param {number} direction - 1 to rotate clockwise, -1 to rotate anti-clockwise
    */
   rotate(x, y, direction = -1) {
-    const tX = this._x * x + (this._y * direction) * y;
+    const tX = this._x * x + (this._y * -direction) * y;
     const tY = (this._x * y + (this._y * direction) * x) * direction;
     this._x = tX;
     this._y = tY;
