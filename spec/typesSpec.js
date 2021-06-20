@@ -39,3 +39,20 @@ describe("Point2D", function() {
     });
   });
 });
+
+/*
+ * Vector2D class tests
+ */
+describe("Vector2D", function() {
+  let vector;
+  beforeEach(function() {
+    vector = new Vector2D(1,5);
+  });
+
+  it("Should be created with correct values", function() {
+    expect(vector._x).toBe(1);
+    expect(vector._y).toBe(5);
+  });
+
+
+});
