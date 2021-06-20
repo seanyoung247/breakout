@@ -54,5 +54,13 @@ describe("Vector2D", function() {
     expect(vector._y).toBe(5);
   });
 
+  describe("normalize", function() {
+    it("can normalize vector", function() {
+      let magnitude = Math.sqrt(vector._x * vector._x + vector._y * vector._y);
+      expect(magnitude).not.toBe(1);
+      vector.normalize();
+      expect(Math.sqrt(vector._x * vector._x + vector._y * vector._y)).toBe(1);
+    });
+  });
 
 });
