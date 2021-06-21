@@ -106,13 +106,13 @@ describe("Vector2D", function() {
       // Anti-clockwise (additive) rotation
       let testValue = testRotation(2,1);
       vector.rotate(2,1,1);
-      expect(vector._x).toBe(testValue.x);
-      expect(vector._y).toBe(testValue.y);
+      expect(vector._x).toBeCloseTo(testValue.x);
+      expect(vector._y).toBeCloseTo(testValue.y);
       // Clockwise (subtractive) rotation
       testValue = testUnrotation(2,1);
       vector.rotate(2,1,-1);
-      expect(vector._x).toBe(testValue.x);
-      expect(vector._y).toBe(testValue.y);
+      expect(vector._x).toBeCloseTo(testValue.x);
+      expect(vector._y).toBeCloseTo(testValue.y);
     });
 
     it("can rotate by radians", function() {
@@ -120,13 +120,13 @@ describe("Vector2D", function() {
       // Anti-clockwise (additive) rotation
       let testValue = testRotation(Math.cos(radians), Math.sin(radians));
       vector.rotateByRadians(radians);
-      expect(vector._x).toBe(testValue.x);
-      expect(vector._y).toBe(testValue.y);
+      expect(vector._x).toBeCloseTo(testValue.x);
+      expect(vector._y).toBeCloseTo(testValue.y);
       // Clockwise (subtractive) rotation
       testValue = testUnrotation(Math.cos(radians), Math.sin(radians));
       vector.unrotateByRadians(radians);
-      expect(vector._x).toBe(testValue.x);
-      expect(vector._y).toBe(testValue.y);
+      expect(vector._x).toBeCloseTo(testValue.x);
+      expect(vector._y).toBeCloseTo(testValue.y);
     });
 
     it("can rotate by vectors", function() {
@@ -137,14 +137,25 @@ describe("Vector2D", function() {
       // Anti-clockwise (additive) rotation
       let testValue = testRotation(vector2._x, vector2._y);
       vector.rotateByVector(vector2);
-      expect(vector._x).toBe(testValue.x);
-      expect(vector._y).toBe(testValue.y);
+      expect(vector._x).toBeCloseTo(testValue.x);
+      expect(vector._y).toBeCloseTo(testValue.y);
       // Clockwise (subtractive) rotation
       testValue = testUnrotation(vector2._x, vector2._y);
       vector.unrotateByVector(vector2);
-      expect(vector._x).toBe(testValue.x);
-      expect(vector._y).toBe(testValue.y);
+      expect(vector._x).toBeCloseTo(testValue.x);
+      expect(vector._y).toBeCloseTo(testValue.y);
     });
+  });
+});
+
+describe("BoundingBox", function() {
+  let box;
+  beforeEach(function() {
+    box = new BoundingBox(1,1,100,100);
+  });
+
+  it("Should be created with correct values", function() {
+    expect(box._x).toBe(1);
   });
 
 });
