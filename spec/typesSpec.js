@@ -149,13 +149,41 @@ describe("Vector2D", function() {
 });
 
 describe("BoundingBox", function() {
-  let box;
+  let box1;
+  let box2;
+  let box3;
   beforeEach(function() {
-    box = new BoundingBox(1,1,100,100);
+    box1 = new BoundingBox(1,1,100,100);
+    box2 = new BoundingBox(50,102,75,75);
+    box3 = new BoundingBox(1,101,150,150);
   });
 
   it("Should be created with correct values", function() {
-    expect(box._x).toBe(1);
+    expect(box1._x).toBe(1);
+    expect(box1._y).toBe(1);
+    expect(box1._w).toBe(100);
+    expect(box1._h).toBe(100);
   });
 
+  it("Should copy with correct values", function() {
+    box1.copy(box2);
+    expect(box1._x).toBe(50);
+    expect(box1._y).toBe(102);
+    expect(box1._w).toBe(75);
+    expect(box1._h).toBe(75);
+  });
+
+  describe("Accessors", function() {
+    it("can get and set width", function() {
+      expect(box1.width).toBe(100);
+      box1.width = 200;
+      expect(box1.width).toBe(200);
+    });
+
+    it("can get and set height", function() {
+      expect(box1.height).toBe(100);
+      box1.height = 200;
+      expect(box1.height).toBe(200);
+    });
+  });
 });
