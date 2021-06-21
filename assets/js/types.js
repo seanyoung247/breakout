@@ -102,14 +102,14 @@ class Vector2D extends Point2D {
    * Converts to this vector to angular vector notation
    *  @return {number} the angle of this vector in radians
    */
-  get radian() {
+  get radians() {
     return Math.atan2(this._y, this._x);
   }
   /**
    * Converts this vector from angular vector notation
    *  @param {number} val - The new angular value
    */
-  set radian(val) {
+  set radians(val) {
     this._x = Math.cos(val);
     this._y = Math.sin(val);
   }
