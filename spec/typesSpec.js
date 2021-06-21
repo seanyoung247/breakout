@@ -57,9 +57,30 @@ describe("Vector2D", function() {
   describe("normalize", function() {
     it("can normalize vector", function() {
       let magnitude = Math.sqrt(vector._x * vector._x + vector._y * vector._y);
-      expect(magnitude).not.toBe(1);
+      expect(magnitude).not.toBeCloseTo(1);
       vector.normalize();
-      expect(Math.sqrt(vector._x * vector._x + vector._y * vector._y)).toBe(1);
+      expect(Math.sqrt(vector._x * vector._x + vector._y * vector._y)).toBeCloseTo(1);
+    });
+  });
+
+  describe("Accessors", function() {
+    it("can get and set magnitude", function() {
+      // Get magnitude
+      let magnitude = Math.sqrt(vector._x * vector._x + vector._y * vector._y);
+      expect(vector.magnitude).toBeCloseTo(magnitude);
+      // Set magnitude
+      vector.magnitude = 10;
+      magnitude = Math.sqrt(vector._x * vector._x + vector._y * vector._y);
+      expect(magnitude).toBeCloseTo(10);
+    });
+    it("can get and set radian angles", function() {
+      // Get radians
+      let radians = Math.atan2(vector._y, vector._x);
+      expect(vector.radians).toBeCloseTo(radians);
+      // Set radians
+      vector.radians = Math.atan2(0,-1);
+      expect(vector._x).toBeCloseTo(-1);
+      expect(vector._y).toBeCloseTo(0);
     });
   });
 
