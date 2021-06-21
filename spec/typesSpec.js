@@ -186,4 +186,18 @@ describe("BoundingBox", function() {
       expect(box1.height).toBe(200);
     });
   });
+
+  describe("Point collision tests", function() {
+    it("detects points in bounds", function() {
+      let point = new Point2D(25,25);
+      expect(box1.inBounds(25,25)).toBeTrue();
+      expect(box1.pointInBounds(point)).toBeTrue();
+    });
+    it("detects points out of bounds", function() {
+      let point = new Point2D(200,200);
+      expect(box1.inBounds(200,200)).toBeFalse();
+      expect(box1.pointInBounds(point)).toBeFalse();
+    });
+  });
+
 });
