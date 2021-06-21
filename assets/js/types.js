@@ -117,7 +117,7 @@ class Vector2D extends Point2D {
    * Rotates this vector by another vector in a given direction
    *  @param {number} x - The x scalar of the vector to rotate by
    *  @param {number} y - The y scalar of the vector to rotate by
-   *  @param {number} direction - 1 to rotate clockwise, -1 to rotate anti-clockwise
+   *  @param {number} direction - -1 to rotate clockwise, 1 to rotate anti-clockwise
    */
   rotate(x, y, direction = -1) {
     const tX = this._x * x + (this._y * -direction) * y;
@@ -133,7 +133,7 @@ class Vector2D extends Point2D {
   rotateByRadians(radians) {
     this.rotate(
       Math.cos(radians),
-      Math.sin(radians)
+      Math.sin(radians), 1
     );
   }
   /**
@@ -141,7 +141,7 @@ class Vector2D extends Point2D {
    *  @param {number} vector - The vector to rotate by
    */
   rotateByVector(vector) {
-    this.rotate(vector._x, vector._y);
+    this.rotate(vector._x, vector._y, 1);
   }
   // Subtractive Rotation
   /**
@@ -151,7 +151,7 @@ class Vector2D extends Point2D {
   unrotateByRadians(radians) {
     this.rotate(
       Math.cos(radians),
-      Math.sin(radians), 1
+      Math.sin(radians), -1
     );
   }
   /**
@@ -159,7 +159,7 @@ class Vector2D extends Point2D {
    *  @param {number} vector - The vector to rotate by
    */
   unrotateByVector(vector) {
-    this.rotate(vector._x, vector._y, 1);
+    this.rotate(vector._x, vector._y, -1);
   }
 }
 
