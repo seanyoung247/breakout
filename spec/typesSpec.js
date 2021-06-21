@@ -154,8 +154,8 @@ describe("BoundingBox", function() {
   let box3;
   beforeEach(function() {
     box1 = new BoundingBox(1,1,100,100);
-    box2 = new BoundingBox(50,102,75,75);
-    box3 = new BoundingBox(1,101,150,150);
+    box2 = new BoundingBox(50,50,75,75);   // Collides with box1
+    box3 = new BoundingBox(1,102,150,150); // Does not collide with box1
   });
 
   it("Should be created with correct values", function() {
@@ -168,7 +168,7 @@ describe("BoundingBox", function() {
   it("Should copy with correct values", function() {
     box1.copy(box2);
     expect(box1._x).toBe(50);
-    expect(box1._y).toBe(102);
+    expect(box1._y).toBe(50);
     expect(box1._w).toBe(75);
     expect(box1._h).toBe(75);
   });
@@ -200,4 +200,16 @@ describe("BoundingBox", function() {
     });
   });
 
+  describe("Box collision tests", function() {
+    it("detects collision", function() {
+      expect(box1.collides(box2)).toBeTrue();
+    });
+    it("detects not in collision", function() {
+      expect(box1.collides(box3)).toBeFalse();
+    });
+    it("detects collision location", function() {
+      expect(box1.intersects(box3)).toBeFalsy();
+      expect(box1.intersects(box2)).toEqual({side: "y", pos: 102});
+    });
+  });
 });
