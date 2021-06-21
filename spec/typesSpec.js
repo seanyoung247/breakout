@@ -212,4 +212,18 @@ describe("BoundingBox", function() {
       expect(box1.intersects(box2)).toEqual({side: "y", pos: 102});
     });
   });
+
+  describe("Containment tests", function() {
+    it("detects contains", function() {
+      box2._w = 25;
+      box2._h = 25;
+      expect(box1.contains(box2)).toBeTrue();
+    });
+    it("detects partial containment", function() {
+      expect(box1.contains(box2)).toBeFalse();
+    });
+    it("detects no containment", function() {
+      expect(box1.contains(box3)).toBeFalse();
+    });
+  });
 });
