@@ -84,4 +84,67 @@ describe("Vector2D", function() {
     });
   });
 
+  describe("Rotation", function() {
+    function testRotation(x, y) {
+      let value = {};
+      value.x = vector._x * x - vector._y * y;
+      value.y = vector._x * y + vector._y * x;
+      return value;
+    }
+
+    function testUnrotation(x, y) {
+      let value = {};
+      value.x = vector._x * x + vector._y * y;
+      value.y = vector._y * x - vector._x * y;
+      return value;
+    }
+    function degreesToRadian(degrees) {
+      return degrees * Math.PI / 180;
+    }
+
+    it("can rotate", function() {
+      // Anti-clockwise (additive) rotation
+      let testValue = testRotation(2,1);
+      vector.rotate(2,1,1);
+      expect(vector._x).toBe(testValue.x);
+      expect(vector._y).toBe(testValue.y);
+      // Clockwise (subtractive) rotation
+      testValue = testUnrotation(2,1);
+      vector.rotate(2,1,-1);
+      expect(vector._x).toBe(testValue.x);
+      expect(vector._y).toBe(testValue.y);
+    });
+
+    it("can rotate by radians", function() {
+      const radians = degreesToRadian(45);
+      // Anti-clockwise (additive) rotation
+      let testValue = testRotation(Math.cos(radians), Math.sin(radians));
+      vector.rotateByRadians(radians);
+      expect(vector._x).toBe(testValue.x);
+      expect(vector._y).toBe(testValue.y);
+      // Clockwise (subtractive) rotation
+      testValue = testUnrotation(Math.cos(radians), Math.sin(radians));
+      vector.unrotateByRadians(radians);
+      expect(vector._x).toBe(testValue.x);
+      expect(vector._y).toBe(testValue.y);
+    });
+
+    it("can rotate by vectors", function() {
+      const vector2 = new Vector2D(
+        Math.cos(degreesToRadian(45)),
+        Math.sin(degreesToRadian(45))
+      );
+      // Anti-clockwise (additive) rotation
+      let testValue = testRotation(vector2._x, vector2._y);
+      vector.rotateByVector(vector2);
+      expect(vector._x).toBe(testValue.x);
+      expect(vector._y).toBe(testValue.y);
+      // Clockwise (subtractive) rotation
+      testValue = testUnrotation(vector2._x, vector2._y);
+      vector.unrotateByVector(vector2);
+      expect(vector._x).toBe(testValue.x);
+      expect(vector._y).toBe(testValue.y);
+    });
+  });
+
 });
