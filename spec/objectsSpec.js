@@ -73,4 +73,14 @@ describe("Block", function() {
       expect(block.isAlive).toBeTrue();
     });
   });
+
+  describe("draw", function() {
+    it("can be called", function() {
+      expect(() => block.draw(mockContext)).not.toThrow();
+    });
+    it("does nothing if dead", function() {
+      expect(mockContext.fill).not.toHaveBeenCalled();
+    });
+  });
+
 });
