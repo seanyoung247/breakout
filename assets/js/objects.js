@@ -277,17 +277,17 @@ class Ball extends GameObject {
     }
     if (this._box.y + this._box.height > bounds.y + bounds.height) {
       // Hit the bottom of the screen
-      game.loseALife();
+      this._game.loseALife();
     }
 
     // Check for collision with the paddle
-    let collision = game.paddle.intersects(this);
+    let collision = this._game.paddle.intersects(this);
     if (collision) {
       this._box[collision.side] = collision.pos;
       this._vector[collision.side] = -this._vector[collision.side];
     }
     // Check for collisions with the blocks
-    const blocks = game.blocks;
+    const blocks = this._game.blocks;
     for (let row = 0; row < blocks.length; row++) {
       for (let column = 0; column < blocks[row].length; column++) {
         collision = blocks[row][column].intersects(this);
@@ -295,7 +295,7 @@ class Ball extends GameObject {
           this._box[collision.side] = collision.pos;
           this._vector[collision.side] = -this._vector[collision.side];
           // Increment the score counter
-          game.increaseScore();
+          this._game.increaseScore();
         }
       }
     }
