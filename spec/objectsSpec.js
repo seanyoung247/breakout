@@ -253,4 +253,9 @@ describe("Ball", function() {
     });
   });
 
+  describe("draw", function() {
+    it("can be called", function() {
+      expect(() => ball.draw(mockContext)).not.toThrow();
+    });
+  });
 });
