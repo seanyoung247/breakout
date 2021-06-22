@@ -48,3 +48,19 @@ describe("GameObject", function() {
     });
   });
 });
+
+/*
+ * Block tests
+ */
+describe("Block", function() {
+  let mockContext;
+  let block;
+  beforeEach(function() {
+    mockContext = jasmine.createSpyObj("context", ["beginPath", "rect", "fill", "arc"]);
+    block = new Block(null, new BoundingBox(1,1,100,50));
+  });
+
+  it("is created with correct values", function() {
+    expect(block._alive).toBeTrue();
+  });
+});
