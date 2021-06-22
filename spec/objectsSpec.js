@@ -79,6 +79,8 @@ describe("Block", function() {
       expect(() => block.draw(mockContext)).not.toThrow();
     });
     it("does nothing if dead", function() {
+      block._alive = false;
+      block.draw(mockContext);
       expect(mockContext.fill).not.toHaveBeenCalled();
     });
   });
@@ -144,4 +146,15 @@ describe("Paddle", function() {
   it("is created with correct values", function() {
     expect(paddle._speed).toBe(50);
   });
+
+  describe("Accessors", function() {
+    it("can get paddle speed", function() {
+      expect(paddle.speed).toBe(50);
+    });
+    it("can set paddle speed", function() {
+      paddle.speed = 100;
+      expect(paddle._speed).toBe(100);
+    });
+  });
+
 });
