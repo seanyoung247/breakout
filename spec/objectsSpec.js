@@ -241,4 +241,16 @@ describe("Ball", function() {
     expect(ball._vector.y).toBe(-100);
   });
 
+  describe("Accessors", function() {
+    it("can get vector", function() {
+      let test = new Vector2D(50, -100);
+      expect(ball.vector).toEqual(test);
+    });
+    it("can not set vector", function() {
+      let test = new Vector2D(500, -500);
+      ball.vector = test;
+      expect(ball.vector).not.toEqual(test);
+    });
+  });
+
 });
