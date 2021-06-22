@@ -195,4 +195,23 @@ describe("Paddle", function() {
       expect(paddle._box.x).toBe(0);
     });
   });
+
+  describe("moveRight", function() {
+    let bounds;
+    let time;
+    beforeEach(function() {
+      bounds = new BoundingBox(0,0,500,500);
+      time = 0.5;
+    });
+    it("moves right", function() {
+      paddle._box.x = 50;
+      paddle.moveRight(bounds, time);
+      expect(paddle._box.x).toBeCloseTo(75);
+    });
+    it("clamps to boundary", function() {
+      paddle._box.x = 400;
+      paddle.moveRight(bounds, time);
+      expect(paddle._box.x).toBe(400);
+    });
+  });
 });
