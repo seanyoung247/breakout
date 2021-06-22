@@ -157,4 +157,10 @@ describe("Paddle", function() {
     });
   });
 
+  describe("draw", function() {
+    it("can be called", function() {
+      expect(() => paddle.draw(mockContext)).not.toThrow();
+    });
+  });
+
 });
