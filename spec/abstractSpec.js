@@ -1,3 +1,6 @@
+/*
+ * AbstractClass tests
+ */
 describe("AbstractClass", function() {
   class TestBaseClass extends AbstractClass {
     constructor() {super(TestBaseClass);}

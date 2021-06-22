@@ -148,6 +148,9 @@ describe("Vector2D", function() {
   });
 });
 
+/*
+ * BoundingBox tests
+ */
 describe("BoundingBox", function() {
   let box1;
   let box2;
