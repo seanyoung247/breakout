@@ -104,4 +104,28 @@ describe("Block", function() {
     });
   });
 
+  describe("Intersection", function() {
+    it("detects intersection", function() {
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      expect(block.intersects(block2)).toBeTruthy();
+    });
+    it("detects non-intersection", function() {
+      block2 = new Block(null, new BoundingBox(102,150,100,50));
+      expect(block.intersects(block2)).toBeFalsy();
+    });
+    it("detects axis of intersection", function() {
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      expect(block.intersects(block2)).toEqual({side: "y", pos: 52})
+    });
+    it("dies on intersection", function() {
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      block.intersects(block2);
+      expect(block._alive).toBeFalse();
+    });
+    it("does nothing if dead", function() {
+      spyOn(GameObject.prototype, 'intersects');
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      expect(GameObject.prototype.intersects).not.toHaveBeenCalled();
+    });
+  });
 });
