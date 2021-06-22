@@ -129,3 +129,19 @@ describe("Block", function() {
     });
   });
 });
+
+/*
+ * Paddle tests
+ */
+describe("Paddle", function() {
+  let mockContext;
+  let paddle;
+  beforeEach(function() {
+    mockContext = jasmine.createSpyObj("context", ["beginPath", "rect", "fill", "arc"]);
+    paddle = new Paddle(null, new BoundingBox(1,1,100,50), 50);
+  });
+
+  it("is created with correct values", function() {
+    expect(paddle._speed).toBe(50);
+  });
+});
