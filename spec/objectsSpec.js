@@ -178,4 +178,21 @@ describe("Paddle", function() {
     });
   });
 
+  describe("moveLeft", function() {
+    let bounds;
+    let time;
+    beforeEach(function() {
+      bounds = new BoundingBox(0,0,500,500);
+      time = 0.5;
+    });
+    it("moves left", function() {
+      paddle._box.x = 50;
+      paddle.moveLeft(bounds, time);
+      expect(paddle._box.x).toBeCloseTo(25);
+    });
+    it("clamps to boundary", function() {
+      paddle.moveLeft(bounds, time);
+      expect(paddle._box.x).toBe(0);
+    });
+  });
 });
