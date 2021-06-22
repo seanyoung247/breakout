@@ -215,3 +215,30 @@ describe("Paddle", function() {
     });
   });
 });
+
+/*
+ * Ball tests
+ */
+describe("Ball", function() {
+  let mockContext;
+  let mockGame;
+  let ball;
+  beforeEach(function() {
+    mockContext = jasmine.createSpyObj("context", ["beginPath", "rect", "fill", "arc"]);
+    mockGame = jasmine.createSpyObj(
+      "Game", ["loseALife", "increaseScore"],
+      {
+        paddle: new Paddle(null, new BoundingBox(11,1,100,50), 50),
+        blocks: [new Block(null, new BoundingBox(1,1,100,50))]
+      }
+    );
+    ball = new Ball(
+      mockGame, new BoundingBox(1,1,100,50), new Vector2D(50, -100));
+  });
+
+  it("is created with correct values", function() {
+    expect(ball._vector.x).toBe(50);
+    expect(ball._vector.y).toBe(-100);
+  });
+
+});
