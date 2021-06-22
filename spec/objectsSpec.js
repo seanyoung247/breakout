@@ -163,4 +163,19 @@ describe("Paddle", function() {
     });
   });
 
+  describe("setPosInBounds", function() {
+    it("sets x to new value in boundary", function() {
+      let bounds = new BoundingBox(0,0,500,500);
+      paddle.setPosInBounds(bounds, 10);
+      expect(paddle._box.x).toBe(10);
+    });
+    it("clamps x to boundary", function() {
+      let bounds = new BoundingBox(0,0,500,500);
+      paddle.setPosInBounds(bounds, -5);
+      expect(paddle._box.x).toBe(0);
+      paddle.setPosInBounds(bounds, 550);
+      expect(paddle._box.x).toBe(400);
+    });
+  });
+
 });
