@@ -83,4 +83,25 @@ describe("Block", function() {
     });
   });
 
+  describe("Collision", function() {
+    it("detects collision", function() {
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      expect(block.collision(block2)).toBeTrue();
+    });
+    it("detects non-collision", function() {
+      block2 = new Block(null, new BoundingBox(102,150,100,50));
+      expect(block.collision(block2)).toBeFalse();
+    });
+    it("dies on collision", function() {
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      block.collision(block2);
+      expect(block._alive).toBeFalse();
+    });
+    it("does nothing if dead", function() {
+      spyOn(GameObject.prototype, 'collision');
+      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      expect(GameObject.prototype.collision).not.toHaveBeenCalled();
+    });
+  });
+
 });
