@@ -63,4 +63,14 @@ describe("Block", function() {
   it("is created with correct values", function() {
     expect(block._alive).toBeTrue();
   });
+
+  describe("Accessors", function() {
+    it("can get alive state", function() {
+      expect(block.isAlive).toBeTrue();
+    });
+    it("can not set alive state", function() {
+      block.isAlive = false;
+      expect(block.isAlive).toBeTrue();
+    });
+  });
 });
