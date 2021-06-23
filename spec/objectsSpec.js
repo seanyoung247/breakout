@@ -228,12 +228,12 @@ describe("Ball", function() {
     mockGame = jasmine.createSpyObj(
       "Game", ["loseALife", "increaseScore"],
       {
-        paddle: new Paddle(null, new BoundingBox(11,1,100,50), 50),
-        blocks: [new Block(null, new BoundingBox(1,1,100,50))]
+        paddle: new Paddle(null, new BoundingBox(11,450,100,50), 50),
+        blocks: [[new Block(null, new BoundingBox(1,1,100,50))]]
       }
     );
     ball = new Ball(
-      mockGame, new BoundingBox(1,1,100,50), new Vector2D(50, -100));
+      mockGame, new BoundingBox(250,250,25,25), new Vector2D(50, -100));
   });
 
   it("is created with correct values", function() {
@@ -256,6 +256,67 @@ describe("Ball", function() {
   describe("draw", function() {
     it("can be called", function() {
       expect(() => ball.draw(mockContext)).not.toThrow();
+    });
+  });
+
+  describe("move", function() {
+    let bounds;
+    let time;
+    beforeEach(function() {
+      bounds = new BoundingBox(0,0,500,500);
+      time = 0.5;
+    });
+
+    it("can move", function() {
+      ball.move(bounds, time);
+      expect(ball._box.x).toEqual(275);
+      expect(ball._box.y).toEqual(200);
+    });
+
+    it("stays in bounds", function() {
+      ball._box._x = 490;
+      ball._box._y = 10;
+      ball.move(bounds, time);
+      expect(ball._box.x).toEqual(475);
+      expect(ball._box.y).toEqual(0);
+    });
+
+    it("loses lives", function() {
+      // Don't lose a life if not hitting the bottom
+      ball.move(bounds, time);
+      expect(mockGame.loseALife).not.toHaveBeenCalled();
+      // Lose a life when hitting the bottom
+      ball.vector.y = 100;
+      ball._box.y = 490;
+      ball.move(bounds, time);
+      expect(mockGame.loseALife).toHaveBeenCalled();
+    });
+
+    it("collides", function() {
+      ball.vector.y = 100;
+      ball._box.x = 10;
+      ball._box.y = 400;
+      ball.move(bounds, time);
+      // Ball was stopped by paddle
+      expect(ball._box.x).toBe(35);
+      expect(ball._box.y).toBe(424);
+      // Ball bounced off of paddle
+      expect(ball.vector.y).toBe(-100);
+    });
+
+    it("increases score", function() {
+      ball._box.x = 10;
+      ball._box.y = 65;
+      ball.move(bounds, time);
+      // Ball was stopped by paddle
+      expect(ball._box.x).toBe(35);
+      expect(ball._box.y).toBe(52);
+      // Ball bounced off of paddle
+      expect(ball.vector.y).toBe(100);
+      // Hitting a block increases score
+      expect(mockGame.increaseScore).toHaveBeenCalled();
+      // Hitting a block 'kills it'
+      expect(mockGame.blocks[0][0].isAlive).toBeFalse();
     });
   });
 });
