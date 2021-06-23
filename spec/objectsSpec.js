@@ -56,7 +56,8 @@ describe("Block", function() {
   let mockContext;
   let block;
   beforeEach(function() {
-    mockContext = jasmine.createSpyObj("context", ["beginPath", "rect", "fill", "arc"]);
+    mockContext = jasmine.createSpyObj(
+      "CanvasRenderingContext2D", ["beginPath", "rect", "fill", "arc"]);
     block = new Block(null, new BoundingBox(1,1,100,50));
   });
 
@@ -139,7 +140,8 @@ describe("Paddle", function() {
   let mockContext;
   let paddle;
   beforeEach(function() {
-    mockContext = jasmine.createSpyObj("context", ["beginPath", "rect", "fill", "arc"]);
+    mockContext = jasmine.createSpyObj(
+      "CanvasRenderingContext2D", ["beginPath", "rect", "fill", "arc"]);
     paddle = new Paddle(null, new BoundingBox(1,1,100,50), 50);
   });
 
@@ -224,7 +226,8 @@ describe("Ball", function() {
   let mockGame;
   let ball;
   beforeEach(function() {
-    mockContext = jasmine.createSpyObj("context", ["beginPath", "rect", "fill", "arc"]);
+    mockContext = jasmine.createSpyObj(
+      "CanvasRenderingContext2D", ["beginPath", "rect", "fill", "arc"]);
     mockGame = jasmine.createSpyObj(
       "Game", ["loseALife", "increaseScore"],
       {
