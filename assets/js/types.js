@@ -102,14 +102,14 @@ class Vector2D extends Point2D {
    * Converts to this vector to angular vector notation
    *  @return {number} the angle of this vector in radians
    */
-  get radian() {
+  get radians() {
     return Math.atan2(this._y, this._x);
   }
   /**
    * Converts this vector from angular vector notation
    *  @param {number} val - The new angular value
    */
-  set radian(val) {
+  set radians(val) {
     this._x = Math.cos(val);
     this._y = Math.sin(val);
   }
@@ -117,10 +117,10 @@ class Vector2D extends Point2D {
    * Rotates this vector by another vector in a given direction
    *  @param {number} x - The x scalar of the vector to rotate by
    *  @param {number} y - The y scalar of the vector to rotate by
-   *  @param {number} direction - 1 to rotate clockwise, -1 to rotate anti-clockwise
+   *  @param {number} direction - -1 to rotate clockwise, 1 to rotate anti-clockwise
    */
   rotate(x, y, direction = -1) {
-    const tX = this._x * x + (this._y * direction) * y;
+    const tX = this._x * x + (this._y * -direction) * y;
     const tY = (this._x * y + (this._y * direction) * x) * direction;
     this._x = tX;
     this._y = tY;
@@ -133,7 +133,7 @@ class Vector2D extends Point2D {
   rotateByRadians(radians) {
     this.rotate(
       Math.cos(radians),
-      Math.sin(radians)
+      Math.sin(radians), 1
     );
   }
   /**
@@ -141,7 +141,7 @@ class Vector2D extends Point2D {
    *  @param {number} vector - The vector to rotate by
    */
   rotateByVector(vector) {
-    this.rotate(vector._x, vector._y);
+    this.rotate(vector._x, vector._y, 1);
   }
   // Subtractive Rotation
   /**
@@ -151,7 +151,7 @@ class Vector2D extends Point2D {
   unrotateByRadians(radians) {
     this.rotate(
       Math.cos(radians),
-      Math.sin(radians), 1
+      Math.sin(radians), -1
     );
   }
   /**
@@ -159,7 +159,7 @@ class Vector2D extends Point2D {
    *  @param {number} vector - The vector to rotate by
    */
   unrotateByVector(vector) {
-    this.rotate(vector._x, vector._y, 1);
+    this.rotate(vector._x, vector._y, -1);
   }
 }
 
