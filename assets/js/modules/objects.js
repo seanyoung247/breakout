@@ -1,3 +1,7 @@
+
+import { Point2D, Vector2D, BoundingBox } from './types.js';
+import { Game } from './game.js';
+
 /**
  * Enforces the abstract class paradigm
  */
@@ -301,3 +305,5 @@ class Ball extends GameObject {
     }
   }
 }
+
+export { AbstractClass, GameObject, Block, Paddle, Ball };
