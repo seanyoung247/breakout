@@ -1,3 +1,7 @@
+
+import { Vector2D, BoundingBox } from "./types.js";
+import { Block, Paddle, Ball } from "./objects.js";
+
 /**
  * Defines the main game controller object. Manages game state, user input and
  * game objects.
