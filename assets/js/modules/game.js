@@ -185,7 +185,8 @@ class Game {
       }
       // If in demo mode move the paddle to the ball
       if (this._demo) {
-        const x = this._ball.dimensions.x - this._paddle.dimensions.width / 2;
+        const x = (this._ball.dimensions.x + (this._ball.dimensions.width / 2))
+                  - (this._paddle.dimensions.width / 2);
         this._paddle.setPosInBounds(this._bounds, x);
       }
       // Move the ball
