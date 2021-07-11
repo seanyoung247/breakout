@@ -1,7 +1,12 @@
+
+ //Needing to import types indicates that the tests aren't properly isolated...
+import { Point2D, Vector2D, BoundingBox } from "../assets/js/modules/types.js";
+import { GameObject, Block, Paddle, Ball } from "../assets/js/modules/objects.js";
+
 /*
  * GameObject tests
  */
-describe("GameObject", function() {
+function GameObject_Tests() {
   class TestGameObject extends GameObject {
     constructor(game, box) {super(game, box);}
   }
@@ -47,12 +52,12 @@ describe("GameObject", function() {
       expect(object.intersects(object2)).toEqual({side: 'x', pos: 12});
     });
   });
-});
+}
 
 /*
  * Block tests
  */
-describe("Block", function() {
+function Block_Tests() {
   let mockContext;
   let block;
   beforeEach(function() {
@@ -70,8 +75,7 @@ describe("Block", function() {
       expect(block.isAlive).toBeTrue();
     });
     it("can not set alive state", function() {
-      block.isAlive = false;
-      expect(block.isAlive).toBeTrue();
+      expect(()=>{block.isAlive = false;}).toThrow();
     });
   });
 
@@ -88,55 +92,55 @@ describe("Block", function() {
 
   describe("Collision", function() {
     it("detects collision", function() {
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       expect(block.collision(block2)).toBeTrue();
     });
     it("detects non-collision", function() {
-      block2 = new Block(null, new BoundingBox(102,150,100,50));
+      let block2 = new Block(null, new BoundingBox(102,150,100,50));
       expect(block.collision(block2)).toBeFalse();
     });
     it("dies on collision", function() {
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       block.collision(block2);
       expect(block._alive).toBeFalse();
     });
     it("does nothing if dead", function() {
       spyOn(GameObject.prototype, 'collision');
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       expect(GameObject.prototype.collision).not.toHaveBeenCalled();
     });
   });
 
   describe("Intersection", function() {
     it("detects intersection", function() {
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       expect(block.intersects(block2)).toBeTruthy();
     });
     it("detects non-intersection", function() {
-      block2 = new Block(null, new BoundingBox(102,150,100,50));
+      let block2 = new Block(null, new BoundingBox(102,150,100,50));
       expect(block.intersects(block2)).toBeFalsy();
     });
     it("detects axis of intersection", function() {
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       expect(block.intersects(block2)).toEqual({side: "y", pos: 52})
     });
     it("dies on intersection", function() {
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       block.intersects(block2);
       expect(block._alive).toBeFalse();
     });
     it("does nothing if dead", function() {
       spyOn(GameObject.prototype, 'intersects');
-      block2 = new Block(null, new BoundingBox(5,5,100,50));
+      let block2 = new Block(null, new BoundingBox(5,5,100,50));
       expect(GameObject.prototype.intersects).not.toHaveBeenCalled();
     });
   });
-});
+}
 
 /*
  * Paddle tests
  */
-describe("Paddle", function() {
+function Paddle_Tests() {
   let mockContext;
   let paddle;
   beforeEach(function() {
@@ -216,12 +220,12 @@ describe("Paddle", function() {
       expect(paddle._box.x).toBe(400);
     });
   });
-});
+}
 
 /*
  * Ball tests
  */
-describe("Ball", function() {
+function Ball_Tests() {
   let mockContext;
   let mockGame;
   let ball;
@@ -251,8 +255,7 @@ describe("Ball", function() {
     });
     it("can not set vector", function() {
       let test = new Vector2D(500, -500);
-      ball.vector = test;
-      expect(ball.vector).not.toEqual(test);
+      expect(()=>{ball.vector = test}).toThrow();
     });
   });
 
@@ -322,4 +325,6 @@ describe("Ball", function() {
       expect(mockGame.blocks[0][0].isAlive).toBeFalse();
     });
   });
-});
+}
+
+export { GameObject_Tests, Block_Tests, Paddle_Tests, Ball_Tests };

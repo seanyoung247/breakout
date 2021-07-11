@@ -1,3 +1,7 @@
+
+import { Vector2D, BoundingBox } from "./types.js";
+import { Block, Paddle, Ball } from "./objects.js";
+
 /**
  * Defines the main game controller object. Manages game state, user input and
  * game objects.
@@ -33,9 +37,9 @@ class Game {
       right: {down: false, up: false},
       demo: {down: false, up: false}
     };
-    this._actionMap.left.action = (...args)=>this._paddle.moveLeft(...args);
-    this._actionMap.right.action = (...args)=>this._paddle.moveRight(...args);
-    this._actionMap.demo.action = ()=>this._demo=!this._demo;
+    this._actionMap.left.action = (...args) => this._paddle.moveLeft(...args);
+    this._actionMap.right.action = (...args) => this._paddle.moveRight(...args);
+    this._actionMap.demo.action = () => this._demo = !this._demo;
 
     // Maps keys to game input commands
     this._keyMap = new Map();
@@ -299,3 +303,5 @@ class Game {
     }
   }
 }
+
+export { Game };

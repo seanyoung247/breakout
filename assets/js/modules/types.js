@@ -307,3 +307,5 @@ class BoundingBox extends Point2D {
     return false;
   }
 }
+
+export { Point2D, Vector2D, BoundingBox };

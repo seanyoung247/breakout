@@ -1,7 +1,9 @@
-var game = null;
+
+import { Game } from './modules/game.js';
+
 document.addEventListener("DOMContentLoaded", function(event) {
   // Get the game canvas
   const canvas = document.getElementById('gameCanvas');
   // Instantiate the game object
-  game = new Game(canvas);
+  let game = new Game(canvas);
 });

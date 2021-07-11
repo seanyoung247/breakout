@@ -1,7 +1,11 @@
+
+import { AbstractClass } from "../assets/js/modules/objects.js";
+
 /*
  * AbstractClass tests
  */
-describe("AbstractClass", function() {
+//describe("AbstractClass", function() {
+function AbstractClass_Tests() {
   class TestBaseClass extends AbstractClass {
     constructor() {super(TestBaseClass);}
     testMethod() {this.AbstractMethod("testMethod");}
@@ -39,4 +43,6 @@ describe("AbstractClass", function() {
       expect(() => test.testMethod()).not.toThrowError(TypeError);
     });
   });
-});
+}//);
+
+export { AbstractClass_Tests };
