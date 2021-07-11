@@ -1,3 +1,4 @@
+
 import { Game } from './modules/game.js';
 
 document.addEventListener("DOMContentLoaded", function(event) {
