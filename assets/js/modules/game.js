@@ -35,17 +35,27 @@ class Game {
     this._actionMap = {
       left: {down: false, up: false},
       right: {down: false, up: false},
-      demo: {down: false, up: false}
+      demo: {down: false, up: false},
+      pause: {down: false, up: false}
     };
-    this._actionMap.left.action = (...args) => this._paddle.moveLeft(...args);
-    this._actionMap.right.action = (...args) => this._paddle.moveRight(...args);
-    this._actionMap.demo.action = () => this._demo = !this._demo;
+    this._actionMap.left.action = (...args) => {this._paddle.moveLeft(...args);}
+    this._actionMap.right.action = (...args) => {this._paddle.moveRight(...args);}
+    this._actionMap.demo.action = () => {
+      this._actionMap.demo.up = false;
+      this._demo = !this._demo;
+    }
+    this._actionMap.pause.action = () => {
+      this._actionMap.pause.up = false;
+      this._paused = !this._paused;
+    }
 
     // Maps keys to game input commands
     this._keyMap = new Map();
     this._keyMap.set("ArrowLeft", "left");
     this._keyMap.set("ArrowRight", "right");
     this._keyMap.set("KeyD", "demo");
+    this._keyMap.set("KeyP", "pause");
+  }
   }
 
   // Internal function, Creates the game objects and starts the game loop
@@ -54,6 +64,7 @@ class Game {
     this._lives = 3;
     this._score = 0;
     this._won = false;
+    this._paused = false;
 
     // Ensure the canvas context width matches it's dom width
     this._canvas.width = this._canvas.scrollWidth;
@@ -148,17 +159,22 @@ class Game {
     this._won = (blockCount <= 0);
   }
 
+  // Internal Function. Checks if the game is currently in progress
+  _playing() {
+    return (this._lives > 0 && !this._won && !this._paused);
+  }
+
   // Internal Function. Updates the game state on each frame
   _update(time) {
-    if (this._lives > 0 && !this._won) {
-      // React to user input
+    if (this._playing()) {
+      // React to in-game user input
       if (this._actionMap.left.down) {
         this._actionMap.left.action(this._bounds, time);
       }
       if (this._actionMap.right.down) {
         this._actionMap.right.action(this._bounds, time);
       }
-      if (this._actionMap.demo.down) {
+      if (this._actionMap.demo.up) {
         this._actionMap.demo.action();
       }
       // If in demo mode move the paddle to the ball
@@ -170,6 +186,10 @@ class Game {
       this._ball.move(this._bounds, time);
       // Check for victory
       this._checkVictory();
+    }
+    // Pausing and menu user input
+    if (this._actionMap.pause.up) {
+      this._actionMap.pause.action();
     }
   }
 
@@ -195,7 +215,7 @@ class Game {
     // Draw the Paddle and Ball
     this._paddle.draw(ctx);
     // Hide the ball if the game isn't actively playing
-    if (this._lives > 0 && !this._won) this._ball.draw(ctx);
+    if (this._playing()) this._ball.draw(ctx);
 
     // Draw score
     ctx.font = "48px 'Press Start 2P'";
@@ -297,7 +317,7 @@ class Game {
   }
 
   mouseMove(event) {
-    if (this._lives > 0 && !this._won && !this._demo) {
+    if (this._playing() && !this._demo) {
       const x = event.clientX - this._paddle.dimensions.width / 2;
       this._paddle.setPosInBounds(this._bounds, x);
     }
