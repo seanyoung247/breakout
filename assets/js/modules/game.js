@@ -33,9 +33,9 @@ class Game {
       right: {down: false, up: false},
       demo: {down: false, up: false}
     };
-    this._actionMap.left.action = (...args)=>this._paddle.moveLeft(...args);
-    this._actionMap.right.action = (...args)=>this._paddle.moveRight(...args);
-    this._actionMap.demo.action = ()=>this._demo=!this._demo;
+    this._actionMap.left.action = (...args) => this._paddle.moveLeft(...args);
+    this._actionMap.right.action = (...args) => this._paddle.moveRight(...args);
+    this._actionMap.demo.action = () => this._demo = !this._demo;
 
     // Maps keys to game input commands
     this._keyMap = new Map();
