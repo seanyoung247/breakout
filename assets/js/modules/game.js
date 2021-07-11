@@ -1,6 +1,7 @@
 
 import { Vector2D, BoundingBox } from "./types.js";
 import { Block, Paddle, Ball } from "./objects.js";
+import { Menu } from "./menu.js";
 
 /**
  * Defines the main game controller object. Manages game state, user input and
@@ -18,6 +19,7 @@ class Game {
     this._demo = false;
 
     this._setupGame();
+    this._setupMenu();
     this._setupEvents();
 
     // Start the game loop
@@ -56,6 +58,10 @@ class Game {
     this._keyMap.set("KeyD", "demo");
     this._keyMap.set("KeyP", "pause");
   }
+
+  _setupMenu() {
+    this._menu = new Menu();
+    this._menu.addItem("Test Item", () => {console.log("test item");});
   }
 
   // Internal function, Creates the game objects and starts the game loop
