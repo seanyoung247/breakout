@@ -1,7 +1,10 @@
+
+import { Point2D, Vector2D, BoundingBox } from "../assets/js/modules/types.js";
+
 /*
  * Point2D class tests
  */
-describe("Point2D", function() {
+function Point2D_Tests() {
   let point;
   beforeEach(function() {
     point = new Point2D(1,5);
@@ -38,12 +41,12 @@ describe("Point2D", function() {
        expect(point.distanceTo(point2)).toBe(1);
     });
   });
-});
+}
 
 /*
  * Vector2D class tests
  */
-describe("Vector2D", function() {
+function Vector2D_Tests() {
   let vector;
   beforeEach(function() {
     vector = new Vector2D(1,5);
@@ -146,12 +149,12 @@ describe("Vector2D", function() {
       expect(vector._y).toBeCloseTo(testValue.y);
     });
   });
-});
+}
 
 /*
  * BoundingBox tests
  */
-describe("BoundingBox", function() {
+function BoundingBox_Tests() {
   let box1;
   let box2;
   let box3;
@@ -229,4 +232,6 @@ describe("BoundingBox", function() {
       expect(box1.contains(box3)).toBeFalse();
     });
   });
-});
+}
+
+export { Point2D_Tests, Vector2D_Tests, BoundingBox_Tests };
