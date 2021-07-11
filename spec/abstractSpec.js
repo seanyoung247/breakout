@@ -43,6 +43,6 @@ function AbstractClass_Tests() {
       expect(() => test.testMethod()).not.toThrowError(TypeError);
     });
   });
-}//);
+}
 
 export { AbstractClass_Tests };
