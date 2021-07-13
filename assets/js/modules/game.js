@@ -1,7 +1,7 @@
 
 import { Vector2D, BoundingBox } from "./types.js";
 import { Block, Paddle, Ball } from "./objects.js";
-import { Menu } from "./menu.js";
+import { MenuItem, Menu } from "./menu.js";
 
 /**
  * Defines the main game controller object. Manages game state, user input and

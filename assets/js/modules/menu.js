@@ -25,4 +25,4 @@ class Menu {
   }
 }
 
-export { Menu };
+export { MenuItem, Menu };
