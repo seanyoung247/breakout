@@ -7,6 +7,12 @@ class MenuItem {
     this._action = action;
     this._selected = false;
   }
+  get text() {
+    return this._text;
+  }
+  set text(val) {
+    this._text = val;
+  }
 }
 
 class Menu {
