@@ -27,7 +27,7 @@ class Point2D {
     return this._x;
   }
   /**
-   * Gets the x coordinate of this point
+   * Sets the x coordinate of this point
    *  @param {number} val - The new value for the x axis coordinate
    */
   set x(val) {
@@ -41,7 +41,7 @@ class Point2D {
     return this._y;
   }
   /**
-   * Gets the y coordinate of this point
+   * Sets the y coordinate of this point
    *  @param {number} val - The new value for the y axis coordinate
    */
   set y(val) {
@@ -198,6 +198,10 @@ class BoundingBox extends Point2D {
   get width() {
     return this._w;
   }
+  /**
+   * Set the width of the box
+   *  @param {number} val - the new box width 
+   */
   set width(val) {
     this._w = val;
   }
