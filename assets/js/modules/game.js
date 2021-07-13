@@ -198,6 +198,8 @@ class Game {
     if (this._actionMap.pause.up) {
       this._actionMap.pause.action();
     }
+    // Pause on lose focus
+    this._paused = !document.hasFocus();
   }
 
   // Internal Function. Draws the frame to the screen
@@ -249,6 +251,7 @@ class Game {
       ctx.fillText("You Won!", this._canvas.width / 2, this._canvas.height / 2);
     }
   }
+
   // Internal Function. Ends this frame and logs end time
   _endFrame(time) {
     this._lastFrameTime = time;
