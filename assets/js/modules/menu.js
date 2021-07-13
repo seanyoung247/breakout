@@ -14,14 +14,28 @@ class Menu {
     this._items = new Array();
     this._show = false;
   }
+
   addItem(text, action) {
     this._items.push(new MenuItem(text, action))
+    return this._items.length - 1;
   }
+
+  removeItem(id) {
+
+  }
+
   show() {
     this._show = true;
   }
+
   hide() {
     this._show = false;
+  }
+
+  draw(ctx) {
+    if (this._show) {
+
+    }
   }
 }
 
